@@ -1,13 +1,18 @@
 ---
-layout: default
-title: Your New Jekyll Site
+layout:   default
+meta-tag: global
+title:    码字...random hacks, erlang, mathematica, etc
 ---
-
-<div id="home">
-  <h1>Blog Posts</h1>
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
+{% for post in site.posts limit: 10 %}
+  <div class="post_excerpt">
+    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+    <span class="label label-important pull-left">{{ post.date | date_to_long_string }}</span>
+    {{ post.excerpt }} 
+    <ul class="nav nav-pills pull-right">
+      <li>
+        <a href="{{ post.url }}"><i class="icon-arrow-right"></i> read more</a>
+      </li>
+    </ul>
+  </div>    
+  <hr style="clear:both" />
+{% endfor %}
