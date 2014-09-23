@@ -2,7 +2,7 @@
 layout: post
 title:  "A Journey To Good Old Days"
 date:   2013-12-05 12:20:22
-tags: signal mathematica 
+tags: signal mathematica en
 ---
 
 Days ago I came across with some [challenges](http://www.windytan.com/2013/06/reader-challenge-obfuscated-messages.html). I wanted to have a try with [answers](http://www.windytan.com/2013/07/reader-challenge-explained.html) in hand. [Mathematica](http://www.wolfram.com) was my No.1 choice, but unfortunately could not be recognized by [Pygments](http://pygments.org/languages/) yet.
