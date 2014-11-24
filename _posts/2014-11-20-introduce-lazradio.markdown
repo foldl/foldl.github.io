@@ -47,7 +47,7 @@ programs simultaneously, one ear one program or mixed as you like.
 
 At last, below is a simulation of a classic encrypted telephone, in which the spectrum of speech is reversed.
 
-{% highlight erlang %}
+{% highlight haskell %}
 {% raw %}
 lazradio encrypt-telephone;
 
