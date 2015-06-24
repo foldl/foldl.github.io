@@ -9,7 +9,7 @@ I like listening to my Redsun RP2100. Someday I bought an USB stick using the RT
 
 RTL2832U USB sticks open a door to cheap and portable SDRs. [GnuRadio][gnuradio] is a powerful toolkit 
 that provides signal processing blocks to implement software-defined radios and signal processing systems,
-but it is also not a easy job to get it run on Windows. 
+but it is also not an easy job to get it run on Windows. 
 
 As I am majoring in communication systems, and have done lots of work on software-defined radios (SDR), 
 such as developing receivers on customized vector processors, and Pascal is the first programming

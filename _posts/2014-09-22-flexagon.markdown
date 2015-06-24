@@ -103,6 +103,6 @@ so overlap occurs on borders.
 {% endraw %}
 {% endhighlight %}
 
-Here is a no-so-awesome example:
+Here is a not-so-awesome example:
 
 ![demo](/img/flexagon-demo.jpg)
