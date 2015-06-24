@@ -1,18 +1,18 @@
 ---
 layout: post
-title:  "Show Charts in Common Test Report"
-date:   2015-06-24 15:20:22
-tags: erlang common\_test en
+title:  "Show Charts in common_test Report"
+date:   2015-06-24 08:20:22
+tags: erlang common_test en
 ---
 
-`common\_test` is a wonderful framework for tests, and if we can make some charts in its report,
+`common_test` is a wonderful framework for tests, and if we can make some charts in its report,
 things would be even greater.
 
-Here is my solution.
+Here is my solution, using [Flot][flot].
 
 #### Manipulate HTML Report with Hooks
 
-1. When a suite is started, copy jquery.flot.min.js and jquery.flot.axislabels.js to logdir.
+1. When a suite is started, copy `jquery.flot.min.js` and `jquery.flot.axislabels.js` to logdir.
 
 1. When a case is started, inject some JavaScript into the HTML log file.
 
@@ -35,9 +35,9 @@ pre_init_per_testcase(TestcaseName, InitData, #state{graph_code = Code} = State)
 {% endraw %}
 {% endhighlight %}
 
-Here, `graph\_code` is a master-piece of JS:
+Here, `graph_code` is a master-piece of JS:
 
-{% highlight javascript %}
+{% highlight html %}
 {% raw %}
 <script type="text/javascript" src="../../../jquery.flot.min.js"></script>
 <script type="text/javascript" src="../../../jquery.flot.axislabels.js"></script>
@@ -80,30 +80,30 @@ function ShowGraph(obj)
     $('.legend th').css('border','none');
 
     g.bind("plothover", function (event, pos, item) {
-				if (item) {
-					var x = item.datapoint[0].toFixed(2),
-						y = item.datapoint[1].toFixed(2);
+            if (item) {
+                var x = item.datapoint[0].toFixed(2),
+                    y = item.datapoint[1].toFixed(2);
 
-					$("#tooltip").html("(" + x + ", " + y + ")")
-						.css({top: item.pageY+5, left: item.pageX+5})
-						.fadeIn(200);
-				} else {
-					$("#tooltip").hide();
-				}
+                $("#tooltip").html("(" + x + ", " + y + ")")
+                    .css({top: item.pageY+5, left: item.pageX+5})
+                    .fadeIn(200);
+            } else {
+                $("#tooltip").hide();
+            }
         });
 }
 $(function() {
-        $("<div id='tooltip'></div>").css({
-                    position: "absolute",
-                    display: "none",
-                    border: "1px solid #fdd",
-                    padding: "2px",
-                    "background-color": "#fee",
-                    opacity: 0.80
-                }).appendTo("body");
+       $("<div id='tooltip'></div>").css({
+                position: "absolute",
+                display: "none",
+                border: "1px solid #fdd",
+                padding: "2px",
+                "background-color": "#fee",
+                opacity: 0.80
+            }).appendTo("body");
         var objs = $('div.chart');
         for (var i = 0; i < objs.length; i ++) ShowGraph(objs[i]);
-	});
+    });
      
 </script>
 
@@ -113,7 +113,8 @@ $(function() {
 
 #### Emit Charts in Test Cases
 
-`ct:log(chart, ?STD\_IMPORTANCE, "~s", [Json])` will do the job, in which Json is a JSON 
-representation of the chart.
+`ct:log(chart, ?STD_IMPORTANCE, "~s", [Json])` will do the job, in which Json is a JSON 
+representation of the chart (`x` in function ShowGraph).
 
+[flot]: http://flotcharts.org/
 
