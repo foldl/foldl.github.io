@@ -31,9 +31,9 @@ ListPlot[hh1[[;; 400]], Joined -> True, PlotRange -> All]
 {% endraw %}
 {% endhighlight %}
 
-![freq domain](/img/freqdomain.png)
+![freq domain](/img/freqdomain.gif)
 
-![time domain](/img/timedomain.png)
+![time domain](/img/timedomain.gif)
 
 #### 3. 带通滤波
 
@@ -55,7 +55,7 @@ IIR 陷波器可以很直观地设计出来：在共振点上设置一个零点�
 点。陷波器是因果稳定的，所有极点要在单位圆内；我们考虑实信号，所以把这对零极点的
 共轭对称点也分别设置为零极点，如下图所示。
 
-![trap filter](/img/trapfilter.png)
+![trap filter](/img/trapfilter.gif)
 
 陷波器设计如下：
 
