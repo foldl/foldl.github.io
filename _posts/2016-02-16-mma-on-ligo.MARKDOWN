@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "用 Mathematica 处理引力波数据"
-date:   2016-02-15 21:20:22
+date:   2016-02-14 21:20:22
 tags: mathematica signal
 ---
 
