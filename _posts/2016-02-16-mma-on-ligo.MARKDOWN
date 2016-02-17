@@ -24,6 +24,7 @@ tags: mathematica signal
 
 {% highlight haskell %}
 {% raw %}
+Fs = 4096;
 hh1 = Import[
    "H-H1_LOSC_4_V1-1126259446-32.hdf5", {"Datasets", "/strain/Strain"}];
 Periodogram[hh1 10^18, SampleRate -> 4*1024, PlotRange -> {{0, 400}, All}]
@@ -42,7 +43,8 @@ ListPlot[hh1[[;; 400]], Joined -> True, PlotRange -> All]
 
 {% highlight haskell %}
 {% raw %}
-BandpassFilter[#, {40, 260} 2 Pi / 4096, 500] &
+StrainBPF[data_, samplerate_] := 
+  BandpassFilter[data, {40, 260} 2 \[Pi]/samplerate, 500];
 {% endraw %}
 {% endhighlight %}
 
@@ -73,16 +75,14 @@ IIR 陷波器可以很直观地设计出来：在共振点上设置一个零点�
 tevent = 1126259462.422; (* Mon Sep 14 09:50:45 GMT 2015*)
 tstart = Import[
    "H-H1_LOSC_4_V1-1126259446-32.hdf5", {"Datasets", "/meta/GPSstart"}];
-all = Reap[Fold[With[{r = #2[#1]},
-       Sow@
-        Take[r, {#, Round[# + 0.3*4096]} &[
-          Round[(tevent - tstart - 0.2) 4096]]]; r] &, hh1,
-     {Identity,
-       BandpassFilter[#, {40, 260} 2 \[Pi]/4096, 500] &,
-       BandpassFilter[#, {40, 260} 2 \[Pi]/4096, 500] &,
-       BandpassFilter[#, {40, 260} 2 \[Pi]/4096, 500] &}
+SelData[data_, {start_, stop_}] := 
+   data[[Round[(tevent - tstart + start) Fs] ;; Round[(tevent - tstart + stop) Fs]]]
+all = Reap[Fold[
+     With[{r = #2[#1]}, Sow@SelData[r, {-0.2, 0.3}]; r] &, 
+     hh1,
+     {Identity, StrainBPF[#, Fs] &, StrainBPF[#, Fs] &, StrainBPF[#, Fs] &}
       ~Join~
-      (Function[{data}, WaveTrap[data, #, 4096]] & /@ {35.9, 36.7, 40.97, 60.00, 120, 180})
+      (Function[{data}, WaveTrap[data, #, Fs]] & /@ {35.9, 36.7, 40.97, 60.00, 120, 180})
      ];];
 labeled = MapThread[{#1, #2} &,
    {all[[2, 1]], {"origin", "bpf", "bpf \[Times] 2", "bpf \[Times] 3"}
@@ -100,6 +100,53 @@ ListAnimate[l]
 这段引力波在频域上的“啁啾”芳容也同时展现：
 
 ![demo](/img/ligo_demo_chirp.gif)
+
+#### 6. 频域处理
+
+像此类数据，绝大多数都可视为噪声，极偶然的情况下，才能接收到零星的数据，而且一旦
+接收到，那就是个“大新闻”。所以，这样的数据可以先白化，使频谱变平缓，噪声基本变成
+“白噪声”。
+
+这里的白化处理比较简单，只要先估计出一个相对比较平滑的频谱，用其幅度去除频谱即可
+。
+
+{% highlight haskell %}
+{% raw %}
+Options[WelchPSD] = {"WindowFunction" -> HannWindow, "Overlap" -> 0};
+WelchPSD[data_, len_, OptionsPattern[]] := 
+  With[{w = 
+     OptionValue[
+       "WindowFunction"] /@ (4/len Most@Range[-len/2, len/2]), 
+    ls = Partition[data, len, len - OptionValue["Overlap"]]}, 
+   Total[Abs[#]^2 & /@ Fourier[w #] & /@ ls]/Length@ls];
+FFTFreq[fs_, n_] := 
+  With[{l = # fs/n & /@ Range[0, Quotient[n, 2]]}, 
+   l~Join~-Reverse@l[[2 ;; Mod[n, 2] - 2]]];
+
+(* 先用较短的长度 psdlen 估计功率谱，以内插后的幅值去做白化 *)
+Whiten[data_, fs_, psdlen_] := With[
+   {interp = 
+     Interpolation@
+      MapThread[List, {FFTFreq[fs, psdlen], WelchPSD[data, psdlen]}]},
+   InverseFourier@(Fourier@data/
+      Sqrt[interp /@ FFTFreq[fs, Length@data]])
+   ];
+{% endraw %}
+{% endhighlight %}
+
+白化之后，再看“那个信号”前后 5 秒的频谱，一条可爱的小尾巴显露出来：
+
+![gw after whitening](/img/gw_spectrum.png)
+
+白化一来消除了强谐波干扰，二来低频部分也被压了下来。现在只用一个带通滤波器
+就可以把引力波检出来了：
+
+{% highlight haskell %}
+{% raw %}
+ListPlot[StrainBPF[SelData[Re@Whiten[hh1, Fs, Fs], {-0.1, 0.05}], Fs],
+  Joined -> True, PlotRange -> All]
+{% endraw %}
+{% endhighlight %}
 
 [losc]: https://losc.ligo.org/s/events/GW150914/GW150914_tutorial.html
 
