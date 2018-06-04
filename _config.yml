@@ -15,7 +15,8 @@ description: "random hacks, erlang, mathematica, etc"
 safe:        false 
 future:      false
 lsi:         false 
-pygments:    true
+#pygments:    true
+highlighter: rouge
 markdown:    kramdown
 permalink:   date
 excerpt_separator: "\n"

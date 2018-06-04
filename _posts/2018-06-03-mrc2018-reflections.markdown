@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "MRC2018 赛后随想"
-date:   2018-06-04 21:20:22
+date:   2018-06-02 21:20:22
 tags: nlp ai
 ---
 
