@@ -8,7 +8,7 @@ tags: nlp ai
 上个月抱着“玩耍”的心态参加了[2018机器阅读理解技术竞赛][mrc2018]，得分很一般，
 在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。
 
-![a persion riding a bike](img/tw1_bike.PNG)
+![a persion riding a bike](/img/tw1_bike.PNG)
 
 百度为这次竞赛提供了官方基准程序 [DuReader](https://github.com/baidu/DuReader)。
 我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必
