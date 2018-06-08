@@ -9,8 +9,7 @@ tags: signal
 
 ### 压缩感知
 
-考虑一个欠定系统`$y = A x$`，我们无法解出`$x$`，或者说有无数的解，却不知道该如何选择。假如`$x$`是稀疏的，即其中多数元素都为 0，
-那么不妨遵照[奥卡姆剃刀][Ockham]法则，取 0-范数最小的做为最优解：
+考虑一个欠定系统`$y = A x$`，我们无法解出`$x$`，或者说有无数的解，却不知道该如何选择。假如`$x$`是稀疏的，即其中多数元素都为 0，那么不妨遵照[奥卡姆剃刀][Ockham]法则，取 0-范数最小的做为最优解：
 
 `$$\underset x {min} \|x\|_0,  \  \  \ \ \ subject \ to \ \ y = Ax$$`
 
@@ -20,19 +19,15 @@ tags: signal
 
 现在这个问题可用线性规划方法进行逼近。
 
-考虑一个更实用的带加性噪声的欠定系统`$y = A x + n$`，`$A \in \mathbb{R}^{n \times m} $`。
-[Emmanuel Candès, Terence Tao](#tao2)提出“均匀不确定性原理”（Uniform Uncertainty Principle），当`$A$`具有受限等距特性时，
-可以稳定且准确地恢复出`$x$`。
+考虑一个更实用的带加性噪声的欠定系统`$y = A x + n$`，`$A \in \mathbb{R}^{n \times m} $`。[Emmanuel Candès, Terence Tao](#tao2)提出“均匀不确定性原理”（Uniform Uncertainty Principle），当`$A$`具有受限等距特性时，可以稳定且准确地恢复出`$x$`。
 
-任取`$T \subset \{1,\ 2,\ \dots,\ n\}$`，引入记号`$A_T$`表示由`$T$`中元素指定的各列组成的子矩阵。
-[Emmanuel Candès, Terence Tao](#tao2) 等定义`$A$`的`$S-$`受限等距常数`$\delta_S$`为：
+任取`$T \subset \{1,\ 2,\ \dots,\ n\}$`，引入记号`$A_T$`表示由`$T$`中元素指定的各列组成的子矩阵。[Emmanuel Candès, Terence Tao](#tao2) 等定义`$A$`的`$S-$`受限等距常数`$\delta_S$`为：
 
 `$$\delta_S = \underset \delta {min} (1-\delta)\|c\|_2^2 \leq \|A_T \  c\|_2^2 \leq (1+\delta)\|c\|_2^2, \ \forall |T| \leq S,\  \forall (C_j)_{j \in T}$$`
 
 这要求抽取`$A$`任意不多于`$S$`列近似正交。
 
-[Emmanuel Candès, Terence Tao](#tao) 中证明如果`$\delta_{3 S} + 3 \delta_{4 S} < 2$`，
-那么对于任意非 0 元素个数不大于`$S$`的`$x$`，下式给出的解：
+[Emmanuel Candès, Terence Tao](#tao) 中证明如果`$\delta_{3 S} + 3 \delta_{4 S} < 2$`，那么对于任意非 0 元素个数不大于`$S$`的`$x$`，下式给出的解：
 
 `$$(P1) \ \ \ \hat x = \underset x {min} \|x\|_1,  \  \  \ \ \ subject \ to \ \ \|y - Ax\|_2 \leq \epsilon$$`
 
@@ -48,9 +43,7 @@ tags: signal
 
 ### 同频多小区信道估计
 
-压缩感知在成像领域应用前景非常广阔，这里讨论一下在 TD-SCDMA 同频信道估计上的应用。
-TD-SCDMA 在利用联合检测解调信号前需要利用中间码（midamble）做信道估计。Midamble 采用了循环前缀，
-通过简单的 FFT/IFFT 即可实现信道估计的快速计算。
+压缩感知在成像领域应用前景非常广阔，这里讨论一下在 TD-SCDMA 同频信道估计上的应用。TD-SCDMA 在利用联合检测解调信号前需要利用中间码（midamble）做信道估计。Midamble 采用了循环前缀，通过简单的 FFT/IFFT 即可实现信道估计的快速计算。
 
 对于存在功率不可忽略的同频小区的情况，上述算法得到的结果会包含严重的同频干扰。现在大多采用串行干扰抵消算法：
 
