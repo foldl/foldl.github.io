@@ -22,7 +22,7 @@
   
 
   
-  <link rel="alternate" type="application/rss+xml" title="码字" href="http://localhost:4000/feed.xml">
+  <link rel="alternate" type="application/rss+xml" title="码字" href="/feed.xml">
   
 
   
@@ -93,15 +93,15 @@
   <meta property="og:description" content="上个月抱着“玩耍”的心态参加了2018机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。 百度为这次竞赛提供了官方基准程序 DuReader。我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必须简化模型。BiDAF 模型，看起来挺“合理”的，于是选择从词嵌入的方向进行简化。 1. 嵌入 DuReader 里词向量长度为 300，每个元素的值在训练过程中动态调整。Facebook 的fastText 为包括中文在内的 157 种语言提供了训练好的词向量，同样也是300维。但是 fastText 中文词库跟 MRC2018 词库交集很小，价值不大。 300 维太长，减为 150，MRC2018 词库太大，将出现次数低于 100 的全去掉。观察问题可以发现，问题中包含的关键词在词库中词频往往较低，都会被替换成 &amp;lt;UNK&amp;gt;。这么处理存在问题，所以增加了一个 &amp;lt;KEYWORD&amp;gt; 向量，也不理想，但总比全部采用 &amp;lt;UNK&amp;gt; 好一些。 除了词可以嵌入之外，对于英语，字母也可以嵌入，汉语就更多了，字、词性、字形等都可以考虑。最后借助Jieba 做了词性的嵌入。 候选段落里的词是否在问题中出现也被当作一个维度做了嵌入。 2. 胡思乱想 炼金术？ Ali Rahimi 在 NIPS 2017 “时间检验奖” 获奖感言中指出当前的深度学习是炼金术。以我对深度学习的浅显认识，确实像炼金术，也像中医。 为什么是 300 维，而不是...">
 
   
-  <meta property="og:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
+  <meta property="og:image" content="/assets/img/hello_world.jpeg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:article:author" content="Judd">
   <meta property="og:article:published_time" content="2018-06-03T05:20:22+08:00">
-  <meta property="og:url" content="http://localhost:4000/2018-06-03-mrc2018-reflections/">
-  <link rel="canonical" href="http://localhost:4000/2018-06-03-mrc2018-reflections/">
+  <meta property="og:url" content="/2018-06-03-mrc2018-reflections/">
+  <link rel="canonical" href="/2018-06-03-mrc2018-reflections/">
   
 
   
@@ -114,7 +114,7 @@
   <meta property="twitter:description" content="上个月抱着“玩耍”的心态参加了2018机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。 百度为这次竞赛提供了官方基准程序 DuReader。我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必须简化模型。BiDAF 模型，看起来挺“合理”的，于是选择从词嵌入的方向进行简化。 1. 嵌入 DuReader 里词向量长度为 300，每个元素的值在训练过程中动态调整。Facebook 的fastText 为包括中文在内的 157 种语言提供了训练好的词向量，同样也是300维。但是 fastText 中文词库跟 MRC2018 词库交集很小，价值不大。 300 维太长，减为 150，MRC2018 词库太大，将出现次数低于 100 的全去掉。观察问题可以发现，问题中包含的关键词在词库中词频往往较低，都会被替换成 &amp;lt;UNK&amp;gt;。这么处理存在问题，所以增加了一个 &amp;lt;KEYWORD&amp;gt; 向量，也不理想，但总比全部采用 &amp;lt;UNK&amp;gt; 好一些。 除了词可以嵌入之外，对于英语，字母也可以嵌入，汉语就更多了，字、词性、字形等都可以考虑。最后借助Jieba 做了词性的嵌入。 候选段落里的词是否在问题中出现也被当作一个维度做了嵌入。 2. 胡思乱想 炼金术？ Ali Rahimi 在 NIPS 2017 “时间检验奖” 获奖感言中指出当前的深度学习是炼金术。以我对深度学习的浅显认识，确实像炼金术，也像中医。 为什么是 300 维，而不是...">
 
   
-  <meta name="twitter:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
+  <meta name="twitter:image" content="/assets/img/hello_world.jpeg">
   
 
   
@@ -143,7 +143,7 @@
   
 
 
-  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">码字</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="">码字</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -168,7 +168,7 @@
   
     <div class="avatar-container">
       <div class="avatar-img-border">
-        <a href="http://localhost:4000/">
+        <a href="">
           <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/hello_world.jpeg" />
         </a>
       </div>
@@ -401,7 +401,7 @@
   <span class="sr-only">Share: </span>
 
   
-    <a href="https://twitter.com/intent/tweet?text=MRC2018+%E8%B5%9B%E5%90%8E%E9%9A%8F%E6%83%B3&url=http%3A%2F%2Flocalhost%3A4000%2F2018-06-03-mrc2018-reflections%2F"
+    <a href="https://twitter.com/intent/tweet?text=MRC2018+%E8%B5%9B%E5%90%8E%E9%9A%8F%E6%83%B3&url=%2F2018-06-03-mrc2018-reflections%2F"
       class="btn btn-social-icon btn-twitter" title="Share on Twitter">
       <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
       <span class="sr-only">Twitter</span>
@@ -409,7 +409,7 @@
   
 
   
-    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2018-06-03-mrc2018-reflections%2F"
+    <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2018-06-03-mrc2018-reflections%2F"
       class="btn btn-social-icon btn-facebook" title="Share on Facebook">
       <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
       <span class="sr-only">Facebook</span>
@@ -417,7 +417,7 @@
   
 
   
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2018-06-03-mrc2018-reflections%2F"
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2018-06-03-mrc2018-reflections%2F"
       class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
       <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
       <span class="sr-only">LinkedIn</span>
