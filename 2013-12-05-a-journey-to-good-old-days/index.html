@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>A Journey To Good Old Days</title>
+
+  
+  <meta name="author" content="Judd">
+  
+
+  <meta name="description" content="Days ago I came across with some challenges. I wanted to have a try with answers in hand. Mathematica was my No.1 choice, but unfortunately could not be recognized by Pygments yet. Almost trivial A classic substitution cipher. At the first glance, it was so weirds, could it be Lewis...">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="码字" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-45774748-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <meta property="og:site_name" content="码字">
+  <meta property="og:title" content="A Journey To Good Old Days">
+  <meta property="og:description" content="Days ago I came across with some challenges. I wanted to have a try with answers in hand. Mathematica was my No.1 choice, but unfortunately could not be recognized by Pygments yet. Almost trivial A classic substitution cipher. At the first glance, it was so weirds, could it be Lewis...">
+
+  
+  <meta property="og:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Judd">
+  <meta property="og:article:published_time" content="2013-12-05T20:20:22+08:00">
+  <meta property="og:url" content="http://localhost:4000/2013-12-05-a-journey-to-good-old-days/">
+  <link rel="canonical" href="http://localhost:4000/2013-12-05-a-journey-to-good-old-days/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@">
+  <meta name="twitter:creator" content="@">
+
+  <meta property="twitter:title" content="A Journey To Good Old Days">
+  <meta property="twitter:description" content="Days ago I came across with some challenges. I wanted to have a try with answers in hand. Mathematica was my No.1 choice, but unfortunately could not be recognized by Pygments yet. Almost trivial A classic substitution cipher. At the first glance, it was so weirds, could it be Lewis...">
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
+  
+
+  
+
+
+  
+
+  
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+          tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+    });
+  </script>
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">码字</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutme">About Me</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="http://localhost:4000/">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/hello_world.jpeg" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "MRC2018 赛后随想", \
+          "category" : "nlpai", \
+          "url"      : "/2018-06-03-mrc2018-reflections/", \
+          "date"     : "June  3, 2018" \
+        }, \
+       \
+        { \
+          "title"    : "用 Mathematica 处理引力波数据", \
+          "category" : "mathematicasignal", \
+          "url"      : "/2016-02-15-mma-on-ligo/", \
+          "date"     : "February 15, 2016" \
+        }, \
+       \
+        { \
+          "title"    : "Show Charts in common_test Report", \
+          "category" : "erlangcommon_testen", \
+          "url"      : "/2015-06-24-charts-in-common-test/", \
+          "date"     : "June 24, 2015" \
+        }, \
+       \
+        { \
+          "title"    : "Introduce LazRadio", \
+          "category" : "lazradiolazarusen", \
+          "url"      : "/2014-11-21-introduce-lazradio/", \
+          "date"     : "November 21, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "Design a 3-D Flexagon", \
+          "category" : "mathematicaen", \
+          "url"      : "/2014-09-22-flexagon/", \
+          "date"     : "September 22, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "十多年前的一道高中物理题", \
+          "category" : "mathematica", \
+          "url"      : "/2014-05-26-decade-years-old-problem-answered/", \
+          "date"     : "May 26, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "压缩感知用于同频信道估计", \
+          "category" : "signal", \
+          "url"      : "/2014-04-29-compressed-sensing-channel-estimation/", \
+          "date"     : "April 29, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "北京小客车摇号数据分析", \
+          "category" : "erlanglazarussampling", \
+          "url"      : "/2014-04-15-beijing-yaohao/", \
+          "date"     : "April 15, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "A Journey To Good Old Days", \
+          "category" : "signalmathematicaen", \
+          "url"      : "/2013-12-05-a-journey-to-good-old-days/", \
+          "date"     : "December  5, 2013" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "码字", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "码字", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>A Journey To Good Old Days</h1>
+          
+
+          
+            <span class="post-meta">Posted on December 5, 2013</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>Days ago I came across with some <a href="http://www.windytan.com/2013/06/reader-challenge-obfuscated-messages.html">challenges</a>. I wanted to have a try with <a href="http://www.windytan.com/2013/07/reader-challenge-explained.html">answers</a> in hand. <a href="http://www.wolfram.com">Mathematica</a> was my No.1 choice, but unfortunately could not be recognized by <a href="http://pygments.org/languages/">Pygments</a> yet.</p>
+
+<h3 id="almost-trivial">Almost trivial</h3>
+
+<p>A classic substitution cipher. At the first glance, it was so weirds, could it be Lewis Carroll’s “Jabberwocky”? “K towiekrp dwx” seemed to be a good breakthrough, since there are only two words that have only one letter, “a” and “I”. After some further try and error, I was defeated and turned to read the answer: K is O and it IS Jabberwocky.</p>
+
+<h3 id="shouldnt-be-very-hard-either">Shouldn’t be very hard either</h3>
+
+<p>If you listen to it, you can find that it isn’t Morse code. Looking into its waveform, it seems that the carrier is modulated by a weak low frequency signal. Below is part of it:</p>
+
+<p><img src="/img/p2-waveform.png" alt="waveform" /></p>
+
+<p>And the spectrum of the whole waveform, from which we could identify the carrier frequency is 1.3651kHz:</p>
+
+<p><img src="/img/p2-wav-fft.png" alt="spectrum" /></p>
+
+<p>It is a narrow band signal. We could say that information is represented by the carrier itself, ON and OFF (a kind of amplitude-shift keying). Back to the answer, this is the <a href="http://en.wikipedia.org/wiki/Hellschreiber">Hellschreiber</a> invented by Rudolf Hell nearly 100 years ago.
+There are tools to decode it, but I wanted to do it from scratch. Since this signal is very clean, to detect carrier’s existence, we can simply calculate a moving average using a moderate window size: Window size should not be too small, because we may get 0s during carrier ON; nor too large, because waveform length of a single bit (245 band, 14x14 pixels per letter) is limited. Then a down-sampling will give us the result. Note that we can surely use higher sampling rate such as 490 samples per second, then we get 28x28 pixels per letter.</p>
+
+<div class="language-mathematica highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">    </span><span class="nv">wav</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Import</span><span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">absAll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">MovingAverage</span><span class="p">[</span><span class="nb">Abs</span><span class="o">@</span><span class="nv">wav</span><span class="p">[[</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">]]</span><span class="o">,</span><span class="w"> </span><span class="m">10</span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nb">ListPlot</span><span class="p">[</span><span class="nb">Take</span><span class="p">[</span><span class="nv">absAll</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="m">9980</span><span class="o">,</span><span class="w"> </span><span class="m">10400</span><span class="p">}]</span><span class="o">,</span><span class="w"> </span><span class="nb">PlotRange</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">All</span><span class="p">]</span><span class="w">
+    </span><span class="nv">sampling</span><span class="p">[</span><span class="nv">data</span><span class="o">_,</span><span class="w"> </span><span class="nv">dataTs</span><span class="o">_,</span><span class="w"> </span><span class="nv">Ts</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">/;</span><span class="w"> </span><span class="nv">Ts</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nv">dataTs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="bp">Module</span><span class="p">[</span><span class="w">
+       </span><span class="p">{</span><span class="nv">l</span><span class="p">}</span><span class="o">,</span><span class="w">
+       </span><span class="nv">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Floor</span><span class="p">[</span><span class="nb">Length</span><span class="p">[</span><span class="nv">data</span><span class="p">]</span><span class="w"> </span><span class="nv">dataTs</span><span class="o">/</span><span class="nv">Ts</span><span class="p">]</span><span class="o">;</span><span class="w">
+       </span><span class="nv">data</span><span class="p">[[</span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Round</span><span class="p">[</span><span class="nb">Range</span><span class="p">[</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="nv">l</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="nv">Ts</span><span class="o">/</span><span class="nv">dataTs</span><span class="p">]]]</span><span class="w">
+       </span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nb">MatrixPlot</span><span class="p">[(</span><span class="nb">Rest</span><span class="w"> </span><span class="o">/@</span><span class="w"> </span><span class="nf">#</span><span class="p">)</span><span class="o">~</span><span class="nb">Join</span><span class="o">~</span><span class="p">(</span><span class="nb">Most</span><span class="w"> </span><span class="o">/@</span><span class="w"> </span><span class="nf">#</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;@</span><span class="w">
+      </span><span class="nb">Transpose</span><span class="o">@</span><span class="p">(</span><span class="nb">Reverse</span><span class="w"> </span><span class="o">/@</span><span class="w">
+         </span><span class="nb">Partition</span><span class="p">[</span><span class="nv">sampling</span><span class="p">[</span><span class="nv">absAll</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="m">8000</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="m">245</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="m">14</span><span class="p">])</span><span class="o">,</span><span class="w">
+     </span><span class="nb">MaxPlotPoints</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Infinity</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/img/p2-result.png" alt="result" /></p>
+
+<p>Actually, this can be decoded by a single line of code:</p>
+
+<figure class="highlight"><pre><code class="language-haskell" data-lang="haskell">    <span class="kt">MatrixPlot</span><span class="p">[</span><span class="o">#~</span><span class="kt">Join</span><span class="o">~#</span> <span class="o">&amp;@</span>
+      <span class="kt">Transpose</span><span class="p">[</span><span class="kt">Reverse</span> <span class="o">/@</span> <span class="kt">Partition</span><span class="p">[</span><span class="n">wav</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="mi">230</span><span class="p">]],</span>
+     <span class="kt">AspectRatio</span> <span class="o">-&gt;</span> <span class="mf">0.15</span><span class="p">,</span> <span class="kt">MaxPlotPoints</span> <span class="o">-&gt;</span> <span class="kt">Infinity</span><span class="p">]</span></code></pre></figure>
+
+<p><img src="/img/p2-singleline.png" alt="result" /></p>
+
+<h3 id="might-take-some-effort">Might take some effort</h3>
+
+<p>Split this image into two halves, then either ImageSubtract or ImageAdd can be used to uncover the secret.</p>
+
+<h3 id="nsa-grade">NSA-grade</h3>
+
+<p>I made an implementation of the <a href="http://en.wikipedia.org/wiki/Playfair_cipher">Playfair cipher</a> as follows.</p>
+
+<div class="language-mathematica highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">    </span><span class="nv">shrink</span><span class="p">[</span><span class="nv">s</span><span class="o">_</span><span class="nb">String</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w">
+      </span><span class="nb">Characters</span><span class="o">@</span><span class="w">
+       </span><span class="nb">StringReplace</span><span class="p">[</span><span class="nb">ToUpperCase</span><span class="o">@</span><span class="nv">s</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="s">" "</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">""</span><span class="o">,</span><span class="w"> </span><span class="s">"\t"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">""</span><span class="o">,</span><span class="w"> </span><span class="s">"J"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">"I"</span><span class="p">}]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">prepare</span><span class="p">[{</span><span class="nv">c1</span><span class="o">_,</span><span class="w"> </span><span class="nv">c2</span><span class="o">_,</span><span class="w"> </span><span class="nv">ls</span><span class="o">___</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nv">acc</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">/;</span><span class="w"> </span><span class="nv">c1</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nv">c2</span><span class="w"> </span><span class="o">:=</span><span class="w">
+      </span><span class="nv">prepare</span><span class="p">[{</span><span class="nv">ls</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nb">Append</span><span class="p">[</span><span class="nv">acc</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">c1</span><span class="o">,</span><span class="w"> </span><span class="nv">c2</span><span class="p">}]]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">prepare</span><span class="p">[{</span><span class="nv">c1</span><span class="o">_,</span><span class="w"> </span><span class="nv">c2</span><span class="o">_,</span><span class="w"> </span><span class="nv">ls</span><span class="o">___</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nv">acc</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">/;</span><span class="w"> </span><span class="nv">c1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">c2</span><span class="w"> </span><span class="o">:=</span><span class="w">
+      </span><span class="nv">prepare</span><span class="p">[{</span><span class="nv">c2</span><span class="o">,</span><span class="w"> </span><span class="nv">ls</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nb">Append</span><span class="p">[</span><span class="nv">acc</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">c1</span><span class="o">,</span><span class="w"> </span><span class="s">"X"</span><span class="p">}]]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">prepare</span><span class="p">[{</span><span class="nv">c1</span><span class="o">_</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nv">acc</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">Append</span><span class="p">[</span><span class="nv">acc</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">c1</span><span class="o">,</span><span class="w"> </span><span class="s">"X"</span><span class="p">}]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">prepare</span><span class="p">[{}</span><span class="o">,</span><span class="w"> </span><span class="nv">acc</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nv">acc</span><span class="o">;</span><span class="w">
+    </span><span class="nv">prepare</span><span class="p">[</span><span class="nv">s</span><span class="o">_</span><span class="nb">String</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nv">prepare</span><span class="p">[</span><span class="nv">shrink</span><span class="o">@</span><span class="nv">s</span><span class="o">,</span><span class="w"> </span><span class="p">{}]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">initkey</span><span class="p">[</span><span class="nv">k</span><span class="o">_</span><span class="nb">String</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w">
+      </span><span class="nb">Partition</span><span class="p">[</span><span class="w">
+       </span><span class="nb">DeleteCases</span><span class="p">[</span><span class="w">
+        </span><span class="nb">DeleteDuplicates</span><span class="p">[</span><span class="nv">shrink</span><span class="o">@</span><span class="nv">k</span><span class="o">~</span><span class="nb">Join</span><span class="o">~</span><span class="nb">CharacterRange</span><span class="p">[</span><span class="s">"A"</span><span class="o">,</span><span class="w"> </span><span class="s">"Z"</span><span class="p">]]</span><span class="o">,</span><span class="w"> </span><span class="s">"J"</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">codepair</span><span class="p">[{</span><span class="nv">c1</span><span class="o">_,</span><span class="w"> </span><span class="nv">c2</span><span class="o">_</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nv">key</span><span class="o">_,</span><span class="w"> </span><span class="nv">Dir</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="bp">Module</span><span class="p">[</span><span class="w">
+       </span><span class="p">{</span><span class="nv">x1</span><span class="o">,</span><span class="w"> </span><span class="nv">y1</span><span class="o">,</span><span class="w"> </span><span class="nv">x2</span><span class="o">,</span><span class="w"> </span><span class="nv">y2</span><span class="p">}</span><span class="o">,</span><span class="w">
+       </span><span class="p">{</span><span class="nv">x1</span><span class="o">,</span><span class="w"> </span><span class="nv">y1</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">First</span><span class="o">@</span><span class="nb">Position</span><span class="p">[</span><span class="nv">key</span><span class="o">,</span><span class="w"> </span><span class="nv">c1</span><span class="p">]</span><span class="o">;</span><span class="w">
+       </span><span class="p">{</span><span class="nv">x2</span><span class="o">,</span><span class="w"> </span><span class="nv">y2</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">First</span><span class="o">@</span><span class="nb">Position</span><span class="p">[</span><span class="nv">key</span><span class="o">,</span><span class="w"> </span><span class="nv">c2</span><span class="p">]</span><span class="o">;</span><span class="w">
+       </span><span class="nb">Which</span><span class="p">[</span><span class="nv">x1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">x2</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">key</span><span class="p">[[</span><span class="nv">x1</span><span class="o">,</span><span class="w"> </span><span class="nb">Mod</span><span class="p">[</span><span class="nv">y1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="nv">Dir</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]]</span><span class="o">,</span><span class="w">
+         </span><span class="nv">key</span><span class="p">[[</span><span class="nv">x1</span><span class="o">,</span><span class="w"> </span><span class="nb">Mod</span><span class="p">[</span><span class="nv">y2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="nv">Dir</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]]}</span><span class="o">,</span><span class="w">
+        </span><span class="nv">y1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">y2</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">key</span><span class="p">[[</span><span class="nb">Mod</span><span class="p">[</span><span class="nv">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="nv">Dir</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="nv">y1</span><span class="p">]]</span><span class="o">,</span><span class="w">
+         </span><span class="nv">key</span><span class="p">[[</span><span class="nb">Mod</span><span class="p">[</span><span class="nv">x2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="nv">Dir</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="nv">y1</span><span class="p">]]}</span><span class="o">,</span><span class="w">
+        </span><span class="nb">True</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">key</span><span class="p">[[</span><span class="nv">x1</span><span class="o">,</span><span class="w"> </span><span class="nv">y2</span><span class="p">]]</span><span class="o">,</span><span class="w"> </span><span class="nv">key</span><span class="p">[[</span><span class="nv">x2</span><span class="o">,</span><span class="w"> </span><span class="nv">y1</span><span class="p">]]}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+       </span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">encodepair</span><span class="p">[{</span><span class="nv">c1</span><span class="o">_,</span><span class="w"> </span><span class="nv">c2</span><span class="o">_</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nv">key</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nv">codepair</span><span class="p">[{</span><span class="nv">c1</span><span class="o">,</span><span class="w"> </span><span class="nv">c2</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nv">key</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">decodepair</span><span class="p">[{</span><span class="nv">c1</span><span class="o">_,</span><span class="w"> </span><span class="nv">c2</span><span class="o">_</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nv">key</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nv">codepair</span><span class="p">[{</span><span class="nv">c1</span><span class="o">,</span><span class="w"> </span><span class="nv">c2</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nv">key</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">PlayfairEncode</span><span class="p">[</span><span class="nv">key</span><span class="o">_,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w">
+      </span><span class="nb">StringJoin</span><span class="w"> </span><span class="o">@@</span><span class="w"> </span><span class="p">(</span><span class="nb">Flatten</span><span class="o">@</span><span class="nv">encodepair</span><span class="p">[</span><span class="nf">#</span><span class="o">,</span><span class="w"> </span><span class="nv">initkey</span><span class="o">@</span><span class="nv">key</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">/@</span><span class="w"> </span><span class="p">(</span><span class="nv">prepare</span><span class="o">@</span><span class="nv">s</span><span class="p">))</span><span class="o">;</span><span class="w">
+    </span><span class="nv">PlayfairDecode</span><span class="p">[</span><span class="nv">key</span><span class="o">_,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w">
+      </span><span class="nb">StringJoin</span><span class="w"> </span><span class="o">@@</span><span class="w"> </span><span class="p">(</span><span class="nb">Flatten</span><span class="o">@</span><span class="nv">decodepair</span><span class="p">[</span><span class="nf">#</span><span class="o">,</span><span class="w"> </span><span class="nv">initkey</span><span class="o">@</span><span class="nv">key</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">/@</span><span class="w">
+         </span><span class="nb">Partition</span><span class="p">[</span><span class="nv">shrink</span><span class="o">@</span><span class="nv">s</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">])</span><span class="o">;</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Output of PlayfairDecode was hard to read, so I wanted to segment a sentence into words automatically.
+Word segmentation is not a trial problem, which needs lots of prior information.
+Still, I wrote a naive word segment function like this:</p>
+
+<ul>
+  <li>first create a graph</li>
+  <li>then use FindShortestPath to select the best segmentation.</li>
+</ul>
+
+<p>Here, each letter was represented by a vertex.
+Each edge connected the start of a word candidate to the start of the next one.
+If this word candidate exists in our dictionary, the longer the candidate, the smaller the edge weight;
+if not, the longer the candidate, the larger the weight. Longer words were preferred, and adjacent not-exist word would be combined into a larger one thanks to the use of Sqrt which grows slower than linear functions.</p>
+
+<div class="language-mathematica highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">    </span><span class="nv">segment</span><span class="p">[</span><span class="nv">str</span><span class="o">_</span><span class="nb">String</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="bp">Module</span><span class="p">[</span><span class="w">
+       </span><span class="p">{</span><span class="nv">lst</span><span class="o">,</span><span class="w"> </span><span class="nv">edges</span><span class="o">,</span><span class="w"> </span><span class="nv">weights</span><span class="o">,</span><span class="w"> </span><span class="nv">i</span><span class="o">,</span><span class="w"> </span><span class="nv">j</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="o">,</span><span class="w"> </span><span class="nv">p</span><span class="o">,</span><span class="w"> </span><span class="nv">g</span><span class="o">,</span><span class="w"> </span><span class="nv">t</span><span class="p">}</span><span class="o">,</span><span class="w">
+       </span><span class="nv">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">ToLowerCase</span><span class="o">@</span><span class="nv">str</span><span class="o">;</span><span class="w">
+       </span><span class="nv">lst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Characters</span><span class="o">@</span><span class="nv">s</span><span class="o">;</span><span class="w">
+       </span><span class="nv">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Flatten</span><span class="p">[</span><span class="nb">Table</span><span class="p">[{</span><span class="nv">i</span><span class="o">,</span><span class="w"> </span><span class="nv">j</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">i</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="nb">Length</span><span class="o">@</span><span class="nv">lst</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">j</span><span class="o">,</span><span class="w"> </span><span class="nv">i</span><span class="o">,</span><span class="w"> </span><span class="nb">Length</span><span class="o">@</span><span class="nv">lst</span><span class="p">}]</span><span class="o">,</span><span class="w">
+         </span><span class="m">1</span><span class="p">]</span><span class="o">;</span><span class="w">
+       </span><span class="nv">edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">First</span><span class="o">@</span><span class="nf">#</span><span class="w"> </span><span class="nv">\[DirectedEdge]</span><span class="w"> </span><span class="nb">Last</span><span class="o">@</span><span class="nf">#</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">/@</span><span class="w"> </span><span class="nv">t</span><span class="o">;</span><span class="w">
+       </span><span class="nv">weights</span><span class="w"> </span><span class="o">=</span><span class="w">
+        </span><span class="nb">If</span><span class="p">[</span><span class="nb">DictionaryLookup</span><span class="p">[</span><span class="nb">StringTake</span><span class="p">[</span><span class="nv">s</span><span class="o">,</span><span class="w"> </span><span class="nf">#</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nb">IgnoreCase</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">True</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="p">{}</span><span class="o">,</span><span class="w">
+           </span><span class="m">1</span><span class="o">/</span><span class="p">(</span><span class="nb">Last</span><span class="o">@</span><span class="nf">#</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">First</span><span class="o">@</span><span class="nf">#</span><span class="p">)</span><span class="o">,</span><span class="w"> </span><span class="nb">Sqrt</span><span class="p">[</span><span class="m">1.2</span><span class="w"> </span><span class="p">(</span><span class="nb">Last</span><span class="o">@</span><span class="nf">#</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">First</span><span class="o">@</span><span class="nf">#</span><span class="p">)]]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">/@</span><span class="w">
+          </span><span class="nv">t</span><span class="o">;</span><span class="w">
+       </span><span class="nv">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Graph</span><span class="p">[</span><span class="nv">edges</span><span class="o">,</span><span class="w"> </span><span class="nb">EdgeWeight</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nv">weights</span><span class="p">]</span><span class="o">;</span><span class="w">
+       </span><span class="nv">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">FindShortestPath</span><span class="p">[</span><span class="nv">g</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="nb">Length</span><span class="o">@</span><span class="nv">lst</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="o">;</span><span class="w">
+       </span><span class="nb">StringTake</span><span class="p">[</span><span class="nv">s</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nb">First</span><span class="o">@</span><span class="nf">#</span><span class="o">,</span><span class="w"> </span><span class="nb">Last</span><span class="o">@</span><span class="nf">#</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">}]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">/@</span><span class="w"> </span><span class="nb">Partition</span><span class="p">[</span><span class="nv">p</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
+    </span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nb">In</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nv">segment</span><span class="p">[</span><span class="s">"THISISMYOLDFRIENDMONSIEURPOIROTWHOMIHAVENOTSEENFORYEARS"</span><span class="p">]</span><span class="w">
+    </span><span class="nb">Out</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"this"</span><span class="o">,</span><span class="w"> </span><span class="s">"is"</span><span class="o">,</span><span class="w"> </span><span class="s">"my"</span><span class="o">,</span><span class="w"> </span><span class="s">"old"</span><span class="o">,</span><span class="w"> </span><span class="s">"friend"</span><span class="o">,</span><span class="w"> </span><span class="s">"monsieur"</span><span class="o">,</span><span class="w"> </span><span class="s">"poirot"</span><span class="o">,</span><span class="w"> </span><span class="s">"who"</span><span class="o">,</span><span class="w">
+        </span><span class="s">"mi"</span><span class="o">,</span><span class="w"> </span><span class="s">"have"</span><span class="o">,</span><span class="w"> </span><span class="s">"not"</span><span class="o">,</span><span class="w"> </span><span class="s">"seen"</span><span class="o">,</span><span class="w"> </span><span class="s">"for"</span><span class="o">,</span><span class="w"> </span><span class="s">"years"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>A problem I had encountered here was that my Mathematica (9.0 released last year) could not handle EdgeWeight specified in Property, while newer versions should be OK.</p>
+
+<p>Here came the end of this wonderful journey. Thank <a href="http://www.windytan.com">Oona</a> for making it.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        N
+       X F
+      C R L
+     E M S G
+    O Y G C D
+   L H B N F D
+  R H F N F T A
+ D R K C S L P L
+U H T G O L D A X
+</code></pre></div></div>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#signal">signal</a>
+          
+            <a href="/tags#mathematica">mathematica</a>
+          
+            <a href="/tags#en">en</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=A+Journey+To+Good+Old+Days&url=http%3A%2F%2Flocalhost%3A4000%2F2013-12-05-a-journey-to-good-old-days%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2013-12-05-a-journey-to-good-old-days%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2013-12-05-a-journey-to-good-old-days%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2014-04-15-beijing-yaohao/" data-toggle="tooltip" data-placement="top" title="北京小客车摇号数据分析">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/foldl" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Judd
+        &nbsp;&bull;&nbsp;
+      
+      2022
+
+      
+
+      
+
+      
+
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

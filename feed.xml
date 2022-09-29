@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    
+    <title>码字</title>
+    
+    
+    <description>This website is a virtual proof that I'm awesome</description>
+    
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+      <item>
+        <title>MRC2018 赛后随想</title>
+        <description>
+          
+          上个月抱着“玩耍”的心态参加了2018机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。 百度为这次竞赛提供了官方基准程序 DuReader。我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必须简化模型。BiDAF 模型，看起来挺“合理”的，于是选择从词嵌入的方向进行简化。 1. 嵌入 DuReader 里词向量长度为 300，每个元素的值在训练过程中动态调整。Facebook 的fastText 为包括中文在内的 157 种语言提供了训练好的词向量，同样也是300维。但是 fastText 中文词库跟 MRC2018 词库交集很小，价值不大。 300 维太长，减为 150，MRC2018 词库太大，将出现次数低于 100 的全去掉。观察问题可以发现，问题中包含的关键词在词库中词频往往较低，都会被替换成 &amp;lt;UNK&amp;gt;。这么处理存在问题，所以增加了一个 &amp;lt;KEYWORD&amp;gt; 向量，也不理想，但总比全部采用 &amp;lt;UNK&amp;gt; 好一些。 除了词可以嵌入之外，对于英语，字母也可以嵌入，汉语就更多了，字、词性、字形等都可以考虑。最后借助Jieba 做了词性的嵌入。 候选段落里的词是否在问题中出现也被当作一个维度做了嵌入。 2. 胡思乱想 炼金术？ Ali Rahimi 在 NIPS 2017 “时间检验奖” 获奖感言中指出当前的深度学习是炼金术。以我对深度学习的浅显认识，确实像炼金术，也像中医。 为什么是 300 维，而不是...
+        </description>
+        <pubDate>Sun, 03 Jun 2018 05:20:22 +0800</pubDate>
+        <link>http://localhost:4000/2018-06-03-mrc2018-reflections/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018-06-03-mrc2018-reflections/</guid>
+      </item>
+    
+      <item>
+        <title>用 Mathematica 处理引力波数据</title>
+        <description>
+          
+          五个月前，美国的激光干涉引力波观测站 LIGO 记录下这片时空里泛起的一丝波澜。这正是爱因斯坦广义相对论中的引力波。 LOSC 上有一篇详实的数据处理教程。正所谓“绝知此事需躬行”，这里我们用 Mathematica 复现教程里的结果。 1. 准备数据 下载两个观测站上采样率为 4096sps 的两组数据。 2. 初步分析 数据格式为 HDF5，Mathematica 可以直接读取。 从 H-H1 站数据的频谱图上可以看出，原始数据里含有丰富的低频分量，以及多个很强的系统固有的谐波干扰。从时域波形上也能大致看出类似现象。 Fs = 4096; hh1 = Import[ &quot;H-H1_LOSC_4_V1-1126259446-32.hdf5&quot;, {&quot;Datasets&quot;, &quot;/strain/Strain&quot;}]; Periodogram[hh1 10^18, SampleRate -&amp;gt; 4*1024, PlotRange -&amp;gt; { {0, 400}, All}] ListPlot[hh1[[;; 400]], Joined -&amp;gt; True, PlotRange -&amp;gt; All] 3. 带通滤波...
+        </description>
+        <pubDate>Mon, 15 Feb 2016 05:20:22 +0800</pubDate>
+        <link>http://localhost:4000/2016-02-15-mma-on-ligo/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016-02-15-mma-on-ligo/</guid>
+      </item>
+    
+      <item>
+        <title>Show Charts in common_test Report</title>
+        <description>
+          
+          common_test is a wonderful framework for tests, and if we can make some charts in its report, things would be even greater. Here is my solution, using Flot. Manipulate HTML Report with Hooks When a suite is started, copy jquery.flot.min.js and jquery.flot.axislabels.js to logdir. When a case is started, inject...
+        </description>
+        <pubDate>Wed, 24 Jun 2015 16:20:22 +0800</pubDate>
+        <link>http://localhost:4000/2015-06-24-charts-in-common-test/</link>
+        <guid isPermaLink="true">http://localhost:4000/2015-06-24-charts-in-common-test/</guid>
+      </item>
+    
+      <item>
+        <title>Introduce LazRadio</title>
+        <description>
+          
+          I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with SDR#. RTL2832U USB sticks open a door to cheap and portable SDRs. GnuRadio is a powerful toolkit that provides signal processing blocks to implement software-defined radios and signal processing...
+        </description>
+        <pubDate>Fri, 21 Nov 2014 02:20:22 +0800</pubDate>
+        <link>http://localhost:4000/2014-11-21-introduce-lazradio/</link>
+        <guid isPermaLink="true">http://localhost:4000/2014-11-21-introduce-lazradio/</guid>
+      </item>
+    
+      <item>
+        <title>Design a 3-D Flexagon</title>
+        <description>
+          
+          Many years later, as watching Arvind Gupta folding a 3-D flexagon, I was to remember that distant day when my father brought me a cube that I was to know it is called Yoshimoto Cube. This 3-D flexagon is very easy to be flexed to reveal hidden faces. Let’s make...
+        </description>
+        <pubDate>Mon, 22 Sep 2014 14:20:22 +0800</pubDate>
+        <link>http://localhost:4000/2014-09-22-flexagon/</link>
+        <guid isPermaLink="true">http://localhost:4000/2014-09-22-flexagon/</guid>
+      </item>
+    
+      <item>
+        <title>十多年前的一道高中物理题</title>
+        <description>
+          
+          转眼高中毕业十五年，恍惚之间物理知识已经忘得差不多了，但是一道物理题却一直萦绕心头，历久弥新。 单位圆区域内有如图的匀强磁场。现有一质量为 $m$，所带电量为 $q$ 的带正电粒子沿垂直于磁场的方向以速度 $v$ 射入该磁场， $v$ 与入射点切线夹角为 $45^{\circ}$。磁场强度不同，粒子在磁场中的运动轨迹不同。求能使粒子在磁场经过的 距离 路程最长的磁场强度 $B$。 参考答案 弦越长，所对的短弧越长，所以最长的运动轨迹所对的弦恰好为单位圆的直径，如上图虚线所示。场强 $B$ 的计算略。 十五年后的解答 这道题当时没做出来，但对参考答案甚是怀疑，直观感觉如果运动轨迹“更弯”一点，可能弧长更长。已经记不清具体做了哪些计算，似乎算过轨迹半径为 1 的情况，可以确信参考答案错了。我还充分利用仅有的一点微积分知识，用了很多节晚自习的时间苦苦计算，最后也没有得到答案。 又快高考了，也是时候跟这个问题做个了断了，三行 Mathamatica 代码： \[{In:}\ \text{sol}=\text{Solve}\left[\left\{x^2+y^2=1^2,\left(\left(r-\frac{\sqrt{2}}{2}\right)+y\right)^2 +\left(x+\frac{\sqrt{2}}{2}\right)^2=r^2\right\},\{x,y\}\right]\] \[{Out:}\ \left\{\left\{x\to -\frac{1}{\sqrt{2}},y\to \frac{1}{\sqrt{2}}\right\},\left\{x\to \frac{5 r^2}{\sqrt{2} r^2-2 r+\sqrt{2}}-\frac{3 \sqrt{2} r}{\sqrt{2} r^2-2 r+\sqrt{2}}+\frac{1}{\sqrt{2} r^2-2 r+\sqrt{2}}-\frac{\sqrt{2} r^3}{\sqrt{2} r^2-2 r+\sqrt{2}}+r-\sqrt{2},y\to \frac{r^2-2 \sqrt{2} r+1}{\sqrt{2} r^2-2 r+\sqrt{2}}\right\}\right\}\] \[{In:}\...
+        </description>
+        <pubDate>Mon, 26 May 2014 02:20:22 +0800</pubDate>
+        <link>http://localhost:4000/2014-05-26-decade-years-old-problem-answered/</link>
+        <guid isPermaLink="true">http://localhost:4000/2014-05-26-decade-years-old-problem-answered/</guid>
+      </item>
+    
+      <item>
+        <title>压缩感知用于同频信道估计</title>
+        <description>
+          
+          压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y = Ax\] 现在这个问题可用线性规划方法进行逼近。 考虑一个更实用的带加性噪声的欠定系统$y...
+        </description>
+        <pubDate>Tue, 29 Apr 2014 15:20:22 +0800</pubDate>
+        <link>http://localhost:4000/2014-04-29-compressed-sensing-channel-estimation/</link>
+        <guid isPermaLink="true">http://localhost:4000/2014-04-29-compressed-sensing-channel-estimation/</guid>
+      </item>
+    
+      <item>
+        <title>北京小客车摇号数据分析</title>
+        <description>
+          
+          本文就从 2011 年第 1 期开始到 2013 年第 12 期止共 36 期的摇号数据做了分析。主要内容包括： 当前摇号机制的不公平 社会行为中的欠阻尼振动现象 “孤独的编码”探奇 1. 背景：摇号的实现 每位申请人对应唯一一个申请编码，每月将所有满足要求的申请人编码从小到大依次排列，并用 1, 2, … 做为摇号基数编码。（注：简便起见，本文对于从 2014 年第 1 期开始的所谓加权概率摇号暂不考虑。） 摇号软件用 .NET 开发，按照 《GB/T 10111-2008 随机数的产生及其在产品质量抽样检验中的应用程序》（以下简称《GB/T 10111-2008》）里的简单随机抽样算法进行摇号，伪代码如下： Random r := new Random(6 位伪随机数种子); while 摇号未完成 do begin repeat n = r.Next(有效编码总数) + 1; until 摇号基数编码...
+        </description>
+        <pubDate>Tue, 15 Apr 2014 07:20:22 +0800</pubDate>
+        <link>http://localhost:4000/2014-04-15-beijing-yaohao/</link>
+        <guid isPermaLink="true">http://localhost:4000/2014-04-15-beijing-yaohao/</guid>
+      </item>
+    
+      <item>
+        <title>A Journey To Good Old Days</title>
+        <description>
+          
+          Days ago I came across with some challenges. I wanted to have a try with answers in hand. Mathematica was my No.1 choice, but unfortunately could not be recognized by Pygments yet. Almost trivial A classic substitution cipher. At the first glance, it was so weirds, could it be Lewis...
+        </description>
+        <pubDate>Thu, 05 Dec 2013 20:20:22 +0800</pubDate>
+        <link>http://localhost:4000/2013-12-05-a-journey-to-good-old-days/</link>
+        <guid isPermaLink="true">http://localhost:4000/2013-12-05-a-journey-to-good-old-days/</guid>
+      </item>
+    
+  </channel>
+</rss>

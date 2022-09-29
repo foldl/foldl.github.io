@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>北京小客车摇号数据分析</title>
+
+  
+  <meta name="author" content="Judd">
+  
+
+  <meta name="description" content="本文就从 2011 年第 1 期开始到 2013 年第 12 期止共 36 期的摇号数据做了分析。主要内容包括： 当前摇号机制的不公平 社会行为中的欠阻尼振动现象 “孤独的编码”探奇 1. 背景：摇号的实现 每位申请人对应唯一一个申请编码，每月将所有满足要求的申请人编码从小到大依次排列，并用 1, 2, … 做为摇号基数编码。（注：简便起见，本文对于从 2014 年第 1 期开始的所谓加权概率摇号暂不考虑。） 摇号软件用 .NET 开发，按照 《GB/T 10111-2008 随机数的产生及其在产品质量抽样检验中的应用程序》（以下简称《GB/T 10111-2008》）里的简单随机抽样算法进行摇号，伪代码如下： Random r := new Random(6 位伪随机数种子); while 摇号未完成 do begin repeat n = r.Next(有效编码总数) + 1; until 摇号基数编码...">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="码字" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-45774748-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <meta property="og:site_name" content="码字">
+  <meta property="og:title" content="北京小客车摇号数据分析">
+  <meta property="og:description" content="本文就从 2011 年第 1 期开始到 2013 年第 12 期止共 36 期的摇号数据做了分析。主要内容包括： 当前摇号机制的不公平 社会行为中的欠阻尼振动现象 “孤独的编码”探奇 1. 背景：摇号的实现 每位申请人对应唯一一个申请编码，每月将所有满足要求的申请人编码从小到大依次排列，并用 1, 2, … 做为摇号基数编码。（注：简便起见，本文对于从 2014 年第 1 期开始的所谓加权概率摇号暂不考虑。） 摇号软件用 .NET 开发，按照 《GB/T 10111-2008 随机数的产生及其在产品质量抽样检验中的应用程序》（以下简称《GB/T 10111-2008》）里的简单随机抽样算法进行摇号，伪代码如下： Random r := new Random(6 位伪随机数种子); while 摇号未完成 do begin repeat n = r.Next(有效编码总数) + 1; until 摇号基数编码...">
+
+  
+  <meta property="og:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Judd">
+  <meta property="og:article:published_time" content="2014-04-15T07:20:22+08:00">
+  <meta property="og:url" content="http://localhost:4000/2014-04-15-beijing-yaohao/">
+  <link rel="canonical" href="http://localhost:4000/2014-04-15-beijing-yaohao/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@">
+  <meta name="twitter:creator" content="@">
+
+  <meta property="twitter:title" content="北京小客车摇号数据分析">
+  <meta property="twitter:description" content="本文就从 2011 年第 1 期开始到 2013 年第 12 期止共 36 期的摇号数据做了分析。主要内容包括： 当前摇号机制的不公平 社会行为中的欠阻尼振动现象 “孤独的编码”探奇 1. 背景：摇号的实现 每位申请人对应唯一一个申请编码，每月将所有满足要求的申请人编码从小到大依次排列，并用 1, 2, … 做为摇号基数编码。（注：简便起见，本文对于从 2014 年第 1 期开始的所谓加权概率摇号暂不考虑。） 摇号软件用 .NET 开发，按照 《GB/T 10111-2008 随机数的产生及其在产品质量抽样检验中的应用程序》（以下简称《GB/T 10111-2008》）里的简单随机抽样算法进行摇号，伪代码如下： Random r := new Random(6 位伪随机数种子); while 摇号未完成 do begin repeat n = r.Next(有效编码总数) + 1; until 摇号基数编码...">
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
+  
+
+  
+
+
+  
+
+  
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+          tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+    });
+  </script>
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">码字</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutme">About Me</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="http://localhost:4000/">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/hello_world.jpeg" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "MRC2018 赛后随想", \
+          "category" : "nlpai", \
+          "url"      : "/2018-06-03-mrc2018-reflections/", \
+          "date"     : "June  3, 2018" \
+        }, \
+       \
+        { \
+          "title"    : "用 Mathematica 处理引力波数据", \
+          "category" : "mathematicasignal", \
+          "url"      : "/2016-02-15-mma-on-ligo/", \
+          "date"     : "February 15, 2016" \
+        }, \
+       \
+        { \
+          "title"    : "Show Charts in common_test Report", \
+          "category" : "erlangcommon_testen", \
+          "url"      : "/2015-06-24-charts-in-common-test/", \
+          "date"     : "June 24, 2015" \
+        }, \
+       \
+        { \
+          "title"    : "Introduce LazRadio", \
+          "category" : "lazradiolazarusen", \
+          "url"      : "/2014-11-21-introduce-lazradio/", \
+          "date"     : "November 21, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "Design a 3-D Flexagon", \
+          "category" : "mathematicaen", \
+          "url"      : "/2014-09-22-flexagon/", \
+          "date"     : "September 22, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "十多年前的一道高中物理题", \
+          "category" : "mathematica", \
+          "url"      : "/2014-05-26-decade-years-old-problem-answered/", \
+          "date"     : "May 26, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "压缩感知用于同频信道估计", \
+          "category" : "signal", \
+          "url"      : "/2014-04-29-compressed-sensing-channel-estimation/", \
+          "date"     : "April 29, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "北京小客车摇号数据分析", \
+          "category" : "erlanglazarussampling", \
+          "url"      : "/2014-04-15-beijing-yaohao/", \
+          "date"     : "April 15, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "A Journey To Good Old Days", \
+          "category" : "signalmathematicaen", \
+          "url"      : "/2013-12-05-a-journey-to-good-old-days/", \
+          "date"     : "December  5, 2013" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "码字", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "码字", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>北京小客车摇号数据分析</h1>
+          
+
+          
+            <span class="post-meta">Posted on April 15, 2014</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>本文就从 2011 年第 1 期开始到 2013 年第 12 期止共 36 期的摇号数据做了分析。主要内容包括：</p>
+
+<ul>
+  <li>当前摇号机制的不公平</li>
+  <li>社会行为中的欠阻尼振动现象</li>
+  <li>“孤独的编码”探奇</li>
+</ul>
+
+<h3 id="1-背景摇号的实现">1. 背景：摇号的实现</h3>
+
+<p>每位申请人对应唯一一个申请编码，每月将所有满足要求的申请人编码从小到大依次排列，并用 1, 2, …  做为摇号基数编码。（注：简便起见，本文对于从 2014 年第 1 期开始的所谓加权概率摇号暂不考虑。）</p>
+
+<p>摇号软件用 <a href="http://msdn.microsoft.com/en-us/library/system.random(v=vs.110).aspx" title=".NET Random">.NET</a> 开发，<a href="http://news.xinhuanet.com/local/2011-01/26/c_121027601_2.htm">按照</a> 《GB/T 10111-2008 随机数的产生及其在产品质量抽样检验中的应用程序》（以下简称《GB/T 10111-2008》）里的简单随机抽样算法进行摇号，伪代码如下：</p>
+
+<div class="language-pascal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Random</span> <span class="n">r</span> <span class="p">:=</span> <span class="n">new</span> <span class="n">Random</span><span class="p">(</span><span class="m">6</span> <span class="err">位伪随机数种子</span><span class="p">);</span>
+<span class="k">while</span> <span class="err">摇号未完成</span> <span class="k">do</span>
+<span class="k">begin</span>
+    <span class="k">repeat</span>
+        <span class="n">n</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="err">有效编码总数</span><span class="p">)</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
+    <span class="k">until</span> <span class="err">摇号基数编码</span> <span class="n">n</span> <span class="err">没被摇中</span><span class="p">;</span>
+    <span class="err">摇出</span> <span class="n">n</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>从“<a href="http://www.bjhjyd.gov.cn/" title="北京市小客车指标管理信息系统">缓解拥堵</a>”网上下载到的摇号程序无法将摇号结果导出。 交通委使用的必是另外一个可导出结果的版本， 至于它还有没有别的功能我们不得而知。作者用 <a href="http://www.lazarus.freepascal.org/">Lazarus</a> 重写了摇号程序以导出结果。</p>
+
+<p>这里引出本文要讨论的第一个问题：小客车摇号需要采用的标准是否真正适用？先看《GB/T 10111-2008》 的适用范围：</p>
+
+<blockquote>
+  <ul>
+    <li>本标准规定了随机数的产生及利用随机数进行随机抽样的方法。</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <ul>
+    <li>本标准适用于分立个体类产品质量抽样检验的随机样本的抽取，也可用于调查抽样中随机样本的抽取。</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <ul>
+    <li>本标准不适于于散料类产品质量抽样检验的样本抽取。</li>
+  </ul>
+</blockquote>
+
+<p>小客车摇号在于选出一部分人赋予权利，而产品质量抽样检验或者调查抽样是为了窥一斑而知全貌，这是两个完全不同的问题，《GB/T 10111-2008》并不适用。</p>
+
+<h3 id="2-不等概率抽样">2. 不等概率抽样</h3>
+
+<p>摇号池确定以后，摇号结果只依赖随机数种子。因此，一个编号被摇中的概率为：</p>
+
+\[P = \frac{能摇到该编号的随机数种子个数}{1000000}\]
+
+<p>这里，假定一百万个随机数种子等概出现。</p>
+
+<p>简单随机抽样是不等概率抽样，即各编码的中签概率不同。以 2013 年第 12 期为例，有效编码 1811403 个， 中签指标 18211 个。遍历一百万个随机数种子， 统计各编号的中签次数可知，最少的中签 9616 次，最多的 10712 次。如果中签概率相等，则每编号的中签次数应为 10053.533。 也即在该期摇号池确实后，有些人“天生”地比别人惨，中签概率比标称概率低（最惨的低 4.4%）； 有些人则“天生”地比别人幸运，最幸运的中签概率比标称概率高 6.5%。</p>
+
+<p>自 2014 年开始的所谓加权概率摇号，$n$ 倍概率即将一个编码赋予 $n$ 个摇号基数编码。现有算法显然也无法保证得到 $n$ 倍概率的效果。 同样，一个家庭多人参加摇号，该家庭中签的概率也非简单的加倍关系。 鉴于一个家庭中多个申请人的编码在摇号池中的大小关系随机， 能保证简单的概率加倍关系的充要条件为：所有可能的摇号结果 ${N \choose M}$ 摇出概率相等。 这里摇号池中编码数为 $N$，指标数为 $M$，所有可能的摇号结果数即 $N$ 中选 $M$的组合数。${N \choose M}$ 是天文数字， 而在现在的摇号机制下，只有其中区区一百万种有摇出的可能。</p>
+
+<p>“失之毫厘，谬以千里。” <a href="http://www.bjhjyd.gov.cn/jggb/2014224/1393230939498_1.html">公平</a>者， 保障法律面前人人平等和机会均等，避免歧视对待。小客车摇号采用不等概抽样，不能保证申请人“机会均等”，显失公平。</p>
+
+<h3 id="3-随机数种子的选取">3. 随机数种子的选取</h3>
+
+<p><a href="http://www.56.com/u55/v_NTgwNDc3MzY.html">摇号现场</a>工作人员通过抓阄在现场随机找出 6 个人，通过按键的方法各选一位数。按键选数字的方法若不公正， 将直接颠覆简单随机抽样仅有的一点随机性。</p>
+
+<p>看着现场工作人员一本正经地下令“开始摇号”、“刻盘”，稍稍一想，整个小客车摇号方案不过是个笑话罢了，认真不得。</p>
+
+<h3 id="4-让数据讲话">4. 让数据讲话</h3>
+
+<p>自 2014 年 2 月 25 日起，摇号程序和摇号池编码文件已可下载，接下来本文试对数据做一点分析。</p>
+
+<p>记第 $i$ 期摇号有效申请编码组成的集合为 $\Omega_i$，记第 $i$ 期中签编码组成的集合为 $\Omega_{i,win}$。</p>
+
+<h4 id="41-消失的编码">4.1 消失的编码</h4>
+
+<p>比较 $\Omega_i$ 与 $\Omega_{i+1}$，前者比后者多了一些元素：第 $i$ 期摇中的，以及其它“消失的编码”。我们将第 $i$ 期消失的编码记作 $\Omega_{gone,i+1}$，则有</p>
+
+\[\Omega_{gone,i+1}=\Omega_i - \Omega_{i+1} - \Omega_{win,i}\]
+
+<p>$\Omega_{gone,i+1}$ 里的编码在第 $i$ 期并未中签，但也没参加下一次摇号。依理，这样编码应该不多，其实不然，
+比如到 2012 年第 4 期时，有十八万余“老”编码没有参加此次摇号。主要原因是自 2012 年 1 月 1 日新的摇号细则将申请有效期改为三个月，申请人需要点击“确认延期”来延长有效期。</p>
+
+<p>$\Omega_{gone,i+1}$ 在 $\Omega_i$ 中所占比重（元素数目之比）的曲线如下。</p>
+
+<p><img src="/img/4.1_gone_percent.png" alt="gone ratio" /></p>
+
+<p>上图与欠阻尼振动曲线颇有几分相似。经过 11 个月，一众申请人方完成对新规定的消化吸收。这是一次很妙的社会行为实验。</p>
+
+<h4 id="42-真正消失的编码">4.2 真正消失的编码</h4>
+
+<p>$\Omega_{gone,i}$ 里的申请人在意识到忘记“确认延期”时，会尽快重新申请。把参加过后续摇号的编码从 $\Omega_{gone,i}$ 中删除，我们可以得到一个“真正”消失了的编码集合 $\Omega_{truly-gone,i}$：</p>
+
+\[\Omega_{truly-gone,i}=\{a | a \in \Omega_{gone,i} \land a \notin \Omega_{j = i + 1, \ldots}\}\]
+
+<p>由于我们的数据只收集到 2013 年底，所以 2014 年后又参加摇号的编码没有从 $\Omega_{gone,i}$ 中删除，导致算出的 $\Omega_{truly-gone,i}$ 元素偏多，尤其是接近 2014 年时。</p>
+
+<p>$\Omega_{truly-gone,i}$ 在 $\Omega_i$ 中所占比重的曲线图如下。如前所述，接近 2014 年时的几组 $\Omega_{truly-gone,i}$ 偏差较大，需略过不计。</p>
+
+<p><img src="/img/4.2_truly_gone.png" alt="gone vs truly-gone" /></p>
+
+<p>“有效期新政”同样将上面的曲线分成迥然不同的两段，着重分析 2012 年第 4 期之前的一段：每期未中签的编码里平均大约有 2.4‰退出了后续的摇号。退出原因大致有二：</p>
+
+<ol>
+  <li>
+    <p>指标需求已满足，比如家里其他人中签，通过其它途径获得指标等</p>
+  </li>
+  <li>
+    <p>指标需求消失，比如购车计划搁置，行为艺术等</p>
+  </li>
+</ol>
+
+<h4 id="43-孤独的编码">4.3 孤独的编码</h4>
+
+<p>$\Omega_{truly-gone,i}$ 还有一个子集，这个集合里的编码只参加了一次摇号，未中签，然后便永远离开了，“挥一挥衣袖，不带走一片云彩”，我们称之为孤独编码，所组成的集合记作 $\Omega_{lonly,i}$:</p>
+
+\[\Omega_{lonly,i + 1}=\{a | a \in \Omega_i \land a \notin \Omega_{win,i} \land \left( \forall_{j \neq i}{a \notin \Omega_j}\right)\}\]
+
+<p>如下图所示，$\Omega_{lonly,i}$ 的元素个数基本恒定（初始两个月除外）。</p>
+
+<p><img src="/img/4.3_lonly.png" alt="lonly" /></p>
+
+<p>每期摇号，平均有 195 人是初次参加，未中签，然后离开。有效申请数从 18 万增加到 180 万，“孤独编码”数却几乎恒定不变，令人费解。 考虑到每期指标数也基本不变，或许这两者之间存在某种联系？</p>
+
+<p>假如以最大的恶意去推测：存在一定量的计划外指标可以绕过摇号直接发给某些人，比如摇号指标数的 10%，这并不会让普通大众和权力人士惊诧。不妨大胆猜想这些计划外指标就在 200 个上下，也即摇号指标数的 1% 左右：200 个申请人的编码被修改，通过审核，参加当期摇号，然后直接赋予中签状态。</p>
+
+<p>上述“方法”不需要控制伪随机数种子，还有一种需要加以控制以使指定编码中签的“方法”。遍历所有伪随机数种子，通过插入假编码调整指定编码的序号，使其中签，找到需要假编码最少的种子。假定有 2000000 有效编码，指标数 20000，则能选中 200 个指定编码的选法与总选法之比非常小，直接与这样的选法相对应的随机数种子几乎不可能存在：</p>
+
+\[{2000000 - 200 \choose 20000 - 200} / {2000000 \choose 20000}  \widetilde= 3.72\times10^{-401}\]
+
+<p>考虑允许插入大约 200 个假编码的情况。考察 $\Omega_{lonly,i + 1}$ 与 $\Omega_{win,i}$ 中相邻编码的关系，可以发现：两个中签编码“夹着”的“孤独编码”绝大部分只有一个，另有极少数两个的情况。插入一两个假编码所能增加的选法仍与 $10^{-401}$ 想去甚远，所以可以排除通过遍历寻找伪随机数种子的可能。</p>
+
+<p>假如以最大的善意去推测： $\Omega_{lonly,i + 1}$ 里这些第 $i$ 新进加入的申请人，在第 $i$ 期摇号时，亲朋中签，需求得以满足。</p>
+
+<p>在进一步讨论之前，我们先看每期新增编码的数目。</p>
+
+<h4 id="44-新增编码">4.4 新增编码</h4>
+
+<p>某编码在第 $i$ 期首次参加摇号，则称该编码是该期的新增编码，中途退出又再次参加的不在此列，即</p>
+
+\[\Omega_{new,i}=\Omega_i - \Omega_{i-1} - \ldots - \Omega_1, i &gt; 1\]
+
+<p>各期新增编码数如下所示。</p>
+
+<p><img src="/img/4.4_new_codes.png" alt="new codes" /></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$</td>
+      <td>\Omega_{lonly}</td>
+      <td>$ 在 $</td>
+      <td>\Omega_{new}</td>
+      <td>$、指标数中所占的比例，分别为 2.5‰、1% 左右：</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/img/4.4_lonly_vs_new.png" alt="new codes" /></p>
+
+<p>回到上面的假设， $\Omega_{new, i}$ 里有一部分申请人一旦亲朋中签，需求得以满足，便会退出摇号，可谓“但求一号”。这一部分人里的一部分“梦想成真”，构成集合 $\Omega_{lonly, i + 1}$，剩余部分仍会参加后续摇号。
+粗略地，如果增加中签指标，但求一号族也会按比例进入 $\Omega_{lonly, i + 1}$。以 2013 年第 10 期为例，中签概率为 1.1%，可估得但求一号族在 $\Omega_{new, i}$ 中所占的比例大约为：</p>
+
+\[\frac{2.5‰}{1.1\%}=22.3\%\]
+
+<p>这就是说，新增申请人中大约每四五个就有一个属于但求一号的情况。我们可以进行一个社会小调查，若此命题成立，则善意猜测成立；若不然，则恶意猜测成立，</p>
+
+<h3 id="5-慌言">5. 慌言</h3>
+
+<p>最后需要说明，本文里些许含混不清的结果很可能是对数据的刻意解读而得，不过是些“慌言”罢了，当不得真。</p>
+
+<p>以《数学悖论奇景》里的一个例子作结。 某药物进行双盲实验。有研究人员随机取实验组 300 人，痊愈 200 人，无副作用；对照组 281 人，痊愈 187 人。显然，使用该药物可提高痊愈比例。 另有一组研究人员随机取实验组 870 人，痊愈 600 人，无副作用；对照组 886 人，痊愈 611 人。 结论同样为使用该药物可提高痊愈比例。 你的结论是什么？</p>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#erlang">erlang</a>
+          
+            <a href="/tags#lazarus">lazarus</a>
+          
+            <a href="/tags#sampling">sampling</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=%E5%8C%97%E4%BA%AC%E5%B0%8F%E5%AE%A2%E8%BD%A6%E6%91%87%E5%8F%B7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90&url=http%3A%2F%2Flocalhost%3A4000%2F2014-04-15-beijing-yaohao%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2014-04-15-beijing-yaohao%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2014-04-15-beijing-yaohao%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2013-12-05-a-journey-to-good-old-days/" data-toggle="tooltip" data-placement="top" title="A Journey To Good Old Days">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2014-04-29-compressed-sensing-channel-estimation/" data-toggle="tooltip" data-placement="top" title="压缩感知用于同频信道估计">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/foldl" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Judd
+        &nbsp;&bull;&nbsp;
+      
+      2022
+
+      
+
+      
+
+      
+
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

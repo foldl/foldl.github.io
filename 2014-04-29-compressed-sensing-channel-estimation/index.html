@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>压缩感知用于同频信道估计</title>
+
+  
+  <meta name="author" content="Judd">
+  
+
+  <meta name="description" content="压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y = Ax\] 现在这个问题可用线性规划方法进行逼近。 考虑一个更实用的带加性噪声的欠定系统$y...">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="码字" href="http://localhost:4000/feed.xml">
+  
+
+  
+
+  
+
+  
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-45774748-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <meta property="og:site_name" content="码字">
+  <meta property="og:title" content="压缩感知用于同频信道估计">
+  <meta property="og:description" content="压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y = Ax\] 现在这个问题可用线性规划方法进行逼近。 考虑一个更实用的带加性噪声的欠定系统$y...">
+
+  
+  <meta property="og:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Judd">
+  <meta property="og:article:published_time" content="2014-04-29T15:20:22+08:00">
+  <meta property="og:url" content="http://localhost:4000/2014-04-29-compressed-sensing-channel-estimation/">
+  <link rel="canonical" href="http://localhost:4000/2014-04-29-compressed-sensing-channel-estimation/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@">
+  <meta name="twitter:creator" content="@">
+
+  <meta property="twitter:title" content="压缩感知用于同频信道估计">
+  <meta property="twitter:description" content="压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y = Ax\] 现在这个问题可用线性规划方法进行逼近。 考虑一个更实用的带加性噪声的欠定系统$y...">
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
+  
+
+  
+
+
+  
+
+  
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+          tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+    });
+  </script>
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="http://localhost:4000/">码字</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutme">About Me</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="http://localhost:4000/">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/hello_world.jpeg" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "MRC2018 赛后随想", \
+          "category" : "nlpai", \
+          "url"      : "/2018-06-03-mrc2018-reflections/", \
+          "date"     : "June  3, 2018" \
+        }, \
+       \
+        { \
+          "title"    : "用 Mathematica 处理引力波数据", \
+          "category" : "mathematicasignal", \
+          "url"      : "/2016-02-15-mma-on-ligo/", \
+          "date"     : "February 15, 2016" \
+        }, \
+       \
+        { \
+          "title"    : "Show Charts in common_test Report", \
+          "category" : "erlangcommon_testen", \
+          "url"      : "/2015-06-24-charts-in-common-test/", \
+          "date"     : "June 24, 2015" \
+        }, \
+       \
+        { \
+          "title"    : "Introduce LazRadio", \
+          "category" : "lazradiolazarusen", \
+          "url"      : "/2014-11-21-introduce-lazradio/", \
+          "date"     : "November 21, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "Design a 3-D Flexagon", \
+          "category" : "mathematicaen", \
+          "url"      : "/2014-09-22-flexagon/", \
+          "date"     : "September 22, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "十多年前的一道高中物理题", \
+          "category" : "mathematica", \
+          "url"      : "/2014-05-26-decade-years-old-problem-answered/", \
+          "date"     : "May 26, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "压缩感知用于同频信道估计", \
+          "category" : "signal", \
+          "url"      : "/2014-04-29-compressed-sensing-channel-estimation/", \
+          "date"     : "April 29, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "北京小客车摇号数据分析", \
+          "category" : "erlanglazarussampling", \
+          "url"      : "/2014-04-15-beijing-yaohao/", \
+          "date"     : "April 15, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "A Journey To Good Old Days", \
+          "category" : "signalmathematicaen", \
+          "url"      : "/2013-12-05-a-journey-to-good-old-days/", \
+          "date"     : "December  5, 2013" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "码字", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "码字", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>压缩感知用于同频信道估计</h1>
+          
+
+          
+            <span class="post-meta">Posted on April 29, 2014</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <p>压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。</p>
+
+<h3 id="压缩感知">压缩感知</h3>
+
+<p>考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照<a href="http://zh.wikipedia.org/zh-cn/奥卡姆剃刀" title="奥卡姆剃刀">奥卡姆剃刀</a>法则，取 0-范数最小的做为最优解：</p>
+
+\[\underset x {min} \|x\|_0,  \  \  \ \ \ subject \ to \ \ y = Ax\]
+
+<p>这个优化问题运算量大，于是 <a href="http://dx.doi.org/10.1002/cpa.20132" title="Donoho, David L, Communications on pure and applied mathematics, 59, 797 (2006)">Donoho</a> 等提出可以以 1-范数代之：</p>
+
+\[\underset x {min} \|x\|_1,  \  \  \ \ \ subject \ to \ \ y = Ax\]
+
+<p>现在这个问题可用线性规划方法进行逼近。</p>
+
+<p>考虑一个更实用的带加性噪声的欠定系统$y = A x + n$，$A \in \mathbb{R}^{n \times m} $。<a href="#tao2">Emmanuel Candès, Terence Tao</a>提出“均匀不确定性原理”（Uniform Uncertainty Principle），当$A$具有受限等距特性时，可以稳定且准确地恢复出$x$。</p>
+
+<p>任取$T \subset {1,\ 2,\ \dots,\ n}$，引入记号$A_T$表示由$T$中元素指定的各列组成的子矩阵。<a href="#tao2">Emmanuel Candès, Terence Tao</a> 等定义$A$的$S-$受限等距常数$\delta_S$为：</p>
+
+\[\delta_S = \underset \delta {min} (1-\delta)\|c\|_2^2 \leq \|A_T \  c\|_2^2 \leq (1+\delta)\|c\|_2^2, \ \forall |T| \leq S,\  \forall (C_j)_{j \in T}\]
+
+<p>这要求抽取$A$任意不多于$S$列近似正交。</p>
+
+<p><a href="#tao">Emmanuel Candès, Terence Tao</a> 中证明如果$\delta_{3 S} + 3 \delta_{4 S} &lt; 2$，那么对于任意非 0 元素个数不大于$S$的$x$，下式给出的解：</p>
+
+\[(P1) \ \ \ \hat x = \underset x {min} \|x\|_1,  \  \  \ \ \ subject \ to \ \ \|y - Ax\|_2 \leq \epsilon\]
+
+<p>是稳定、准确的：</p>
+
+\[\|\hat x - x\|_2 \leq C_S \ \epsilon\]
+
+<p>这里$\epsilon$是噪声的功率的一个上限，$|n|<em>2 \leq \epsilon$，常数$C_S$可能只依赖于$\delta</em>{4 S}$。</p>
+
+<p>注意，上文里的$A$各列的模都已经过归一化处理。</p>
+
+<p>$(P1)$是二阶凸优化的简单特例，有现成的工具包可用，比如 <a href="http://openopt.org/SOCP" title="SOCP">OpenOPT</a>。</p>
+
+<h3 id="同频多小区信道估计">同频多小区信道估计</h3>
+
+<p>压缩感知在成像领域应用前景非常广阔，这里讨论一下在 TD-SCDMA 同频信道估计上的应用。TD-SCDMA 在利用联合检测解调信号前需要利用中间码（midamble）做信道估计。Midamble 采用了循环前缀，通过简单的 FFT/IFFT 即可实现信道估计的快速计算。</p>
+
+<p>对于存在功率不可忽略的同频小区的情况，上述算法得到的结果会包含严重的同频干扰。现在大多采用串行干扰抵消算法：</p>
+
+<ol>
+  <li>用 FFT/IFFT 得到各小区的（初始）信道估计</li>
+  <li>从各小区的信道估计选出最强的抽头</li>
+  <li>计算并抵消该抽头对其它小区的干扰</li>
+  <li>标记该抽头使其不再参与后续强抽头的选取</li>
+</ol>
+
+<p>重复步骤 2~4 至一定次数，得到最终的信道估计。</p>
+
+<p>信道冲激响应中的有效插头稀疏分布，可以使用压缩感知做信道估计，至于构造出的矩阵$A$是否满足均匀不确定性原理，
+我们这里暂不做详细计算。</p>
+
+<p>假设可能接收到自来$n$个同频小区的信号，</p>
+
+\[y= (\sum_{i=1}^n M_i h_i) + n=\begin{bmatrix} M_1 &amp; \dots &amp; M_n\end{bmatrix} \begin{bmatrix}h_1 \\  \vdots   \\h_n \end{bmatrix} + n= \mathbf{M} \mathbf{h}+ n\]
+
+<p>鉴于 <a href="http://openopt.org/SOCP" title="SOCP">SOCP</a> 工具只支持实数域，可以将上式拆成实部、虚部两个部分，</p>
+
+\[\mathbf{M}'=\begin{bmatrix}Re\{\mathbf{M}\} &amp; -Im\{\mathbf{M}\} \\ Im\{\mathbf{M}\} &amp; Re\{\mathbf{M}\} \end{bmatrix},\ \mathbf{h}'=\begin{bmatrix}Re\{\mathbf{h}\}  \\ Im\{\mathbf{h}\}  \end{bmatrix}\]
+
+<p>最后还需要将$\underset x {min} |x|_1$转化为 <a href="http://openopt.org/SOCP" title="SOCP">OpenOPT</a> 需要的$\underset \alpha {min} f^T \alpha$，</p>
+
+\[\alpha = \begin{pmatrix}u\\v\end{pmatrix},\ f= \begin{pmatrix}1 \\ \vdots \\ 1\end{pmatrix}, \ x=u-v,\ u &gt; 0, \ v&gt;0\]
+
+<p>实验显示，压缩感知给出的信道估计远远优于串行干扰抵消算法，例如下图；当然，计算量也远大于串行干扰抵消：</p>
+
+<p><img src="/img/cir_amp_compare.png" alt="compare" /></p>
+
+<p>最上面为理想信道估计（i）和串行干扰抵消（sic）、压缩感知（sc）的结果在各抽头上的功率对比，中间为各抽头实虚部的对比，最下为各抽头星座图的对比。</p>
+
+<h3 id="参考文献">参考文献</h3>
+
+<ol>
+  <li>
+    <p><a name="tao"></a>Candès, Emmanuel J.; Romberg, Justin K.; Tao, Terence (2006).
+ “Stable signal recovery from incomplete and inaccurate measurements”</p>
+  </li>
+  <li>
+    <p><a name="tao2"></a>Candès, Emmanuel J.; Tao, Terence. “Decoding by linear programming”</p>
+  </li>
+</ol>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#signal">signal</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=%E5%8E%8B%E7%BC%A9%E6%84%9F%E7%9F%A5%E7%94%A8%E4%BA%8E%E5%90%8C%E9%A2%91%E4%BF%A1%E9%81%93%E4%BC%B0%E8%AE%A1&url=http%3A%2F%2Flocalhost%3A4000%2F2014-04-29-compressed-sensing-channel-estimation%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2014-04-29-compressed-sensing-channel-estimation%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2014-04-29-compressed-sensing-channel-estimation%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2014-04-15-beijing-yaohao/" data-toggle="tooltip" data-placement="top" title="北京小客车摇号数据分析">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2014-05-26-decade-years-old-problem-answered/" data-toggle="tooltip" data-placement="top" title="十多年前的一道高中物理题">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/foldl" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Judd
+        &nbsp;&bull;&nbsp;
+      
+      2022
+
+      
+
+      
+
+      
+
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -9,13 +9,13 @@
 
   
 
-  <title>码字</title>
+  <title>Tag Index</title>
 
   
   <meta name="author" content="Judd">
   
 
-  <meta name="description" content="...random hacks, erlang, mathematica, etc">
+  <meta name="description" content="{% assign date_format = site.date_format | default: &quot;%B %-d, %Y&quot; %} {%- capture site_tags -%} {%- for tag in site.tags -%} {{- tag | first -}}{%- unless forloop.last -%},{%- endunless -%} {%- endfor -%} {%- endcapture -%} {%- assign tags_list = site_tags | split:',' | sort -%} {%- for tag...">
 
   
 
@@ -89,8 +89,8 @@
 
   
   <meta property="og:site_name" content="码字">
-  <meta property="og:title" content="码字">
-  <meta property="og:description" content="...random hacks, erlang, mathematica, etc">
+  <meta property="og:title" content="Tag Index">
+  <meta property="og:description" content="{% assign date_format = site.date_format | default: &quot;%B %-d, %Y&quot; %} {%- capture site_tags -%} {%- for tag in site.tags -%} {{- tag | first -}}{%- unless forloop.last -%},{%- endunless -%} {%- endfor -%} {%- endcapture -%} {%- assign tags_list = site_tags | split:',' | sort -%} {%- for tag...">
 
   
   <meta property="og:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
@@ -98,8 +98,8 @@
 
   
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/">
-  <link rel="canonical" href="http://localhost:4000/">
+  <meta property="og:url" content="http://localhost:4000/tags/">
+  <link rel="canonical" href="http://localhost:4000/tags/">
   
 
   
@@ -108,8 +108,8 @@
   <meta name="twitter:site" content="@">
   <meta name="twitter:creator" content="@">
 
-  <meta property="twitter:title" content="码字">
-  <meta property="twitter:description" content="...random hacks, erlang, mathematica, etc">
+  <meta property="twitter:title" content="Tag Index">
+  <meta property="twitter:description" content="{% assign date_format = site.date_format | default: &quot;%B %-d, %Y&quot; %} {%- capture site_tags -%} {%- for tag in site.tags -%} {{- tag | first -}}{%- unless forloop.last -%},{%- endunless -%} {%- endfor -%} {%- endcapture -%} {%- assign tags_list = site_tags | split:',' | sort -%} {%- for tag...">
 
   
   <meta name="twitter:image" content="http://localhost:4000/assets/img/hello_world.jpeg">
@@ -309,12 +309,7 @@
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
         <div class="page-heading">
-          <h1>码字</h1>
-          
-            
-              <hr class="small">
-              <span class="page-subheading">...random hacks, erlang, mathematica, etc</span>
-            
+          <h1>Tag Index</h1>
           
 
           
@@ -334,312 +329,147 @@
     <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
       
 
-      
-
-
-
-<!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-<ul class="posts-list list-unstyled" role="list">
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2018-06-03-mrc2018-reflections/">
-        <h2 class="post-title">MRC2018 赛后随想</h2>
-
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on June 3, 2018
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        上个月抱着“玩耍”的心态参加了2018机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。
-
-
-        
-        
-          <a href="http://localhost:4000/2018-06-03-mrc2018-reflections/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#nlp">nlp</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#ai">ai</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2016-02-15-mma-on-ligo/">
-        <h2 class="post-title">用 Mathematica 处理引力波数据</h2>
-
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on February 15, 2016
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        五个月前，美国的激光干涉引力波观测站 LIGO 记录下这片时空里泛起的一丝波澜。这正是爱因斯坦广义相对论中的引力波。
-
-
-        
-        
-          <a href="http://localhost:4000/2016-02-15-mma-on-ligo/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#mathematica">mathematica</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#signal">signal</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2015-06-24-charts-in-common-test/">
-        <h2 class="post-title">Show Charts in common_test Report</h2>
-
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on June 24, 2015
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        common_test is a wonderful framework for tests, and if we can make some charts in its report,
-things would be even greater.
-
-
-        
-        
-          <a href="http://localhost:4000/2015-06-24-charts-in-common-test/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#erlang">erlang</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#common_test">common_test</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#en">en</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2014-11-21-introduce-lazradio/">
-        <h2 class="post-title">Introduce LazRadio</h2>
-
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on November 21, 2014
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with SDR#.
-
-
-        
-        
-          <a href="http://localhost:4000/2014-11-21-introduce-lazradio/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#lazradio">lazradio</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#lazarus">lazarus</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#en">en</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
-  
-  <li class="post-preview">
-    <article>
-      
-
-      
-
-      <a href="http://localhost:4000/2014-09-22-flexagon/">
-        <h2 class="post-title">Design a 3-D Flexagon</h2>
-
-        
-      </a>
-
-      <p class="post-meta">
-        
-        Posted on September 22, 2014
-      </p>
-
-      
-
-      
-      
-
-      <div class="post-entry">
-        
-        Many years later, as watching Arvind Gupta folding a
-3-D flexagon, I was to remember
-that distant day when my father brought me a cube that I was to know it is called Yoshimoto
-Cube.
-
-
-        
-        
-          <a href="http://localhost:4000/2014-09-22-flexagon/" class="post-read-more">[Read&nbsp;More]</a>
-        
-      </div>
-      
-
-      
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#mathematica">mathematica</a>
-          </li>
-          
-          <li class="list-inline-item">
-            <a href="http://localhost:4000/tags#en">en</a>
-          </li>
-          
-        </ul>
-      </div>
-      
-
-    </article>
-  </li>
-  
-</ul>
-
-
-<ul class="pagination main-pager">
-  
-  
-  <li class="page-item next">
-    <a class="page-link" href="http://localhost:4000/page2">Older Posts &rarr;</a>
-  </li>
-  
-</ul>
-
+      <a href="#ai" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;ai&nbsp;(1)</a><a href="#common_test" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;common_test&nbsp;(1)</a><a href="#en" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;en&nbsp;(4)</a><a href="#erlang" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;erlang&nbsp;(2)</a><a href="#lazarus" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;lazarus&nbsp;(2)</a><a href="#lazradio" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;lazradio&nbsp;(1)</a><a href="#mathematica" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;mathematica&nbsp;(4)</a><a href="#nlp" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;nlp&nbsp;(1)</a><a href="#sampling" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;sampling&nbsp;(1)</a><a href="#signal" class="btn btn-primary tag-btn"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;signal&nbsp;(3)</a><div id="full-tags-list"><h2 id="ai" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;ai&nbsp;(1)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2018-06-03-mrc2018-reflections/">MRC2018 赛后随想</a>
+                <div class="entry-date">
+                    <time datetime="2018-06-03T05:20:22+08:00">June 3, 2018</time>
+                </div>
+            </div></div><h2 id="common_test" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;common_test&nbsp;(1)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2015-06-24-charts-in-common-test/">Show Charts in common_test Report</a>
+                <div class="entry-date">
+                    <time datetime="2015-06-24T16:20:22+08:00">June 24, 2015</time>
+                </div>
+            </div></div><h2 id="en" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;en&nbsp;(4)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2015-06-24-charts-in-common-test/">Show Charts in common_test Report</a>
+                <div class="entry-date">
+                    <time datetime="2015-06-24T16:20:22+08:00">June 24, 2015</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2014-11-21-introduce-lazradio/">Introduce LazRadio</a>
+                <div class="entry-date">
+                    <time datetime="2014-11-21T02:20:22+08:00">November 21, 2014</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2014-09-22-flexagon/">Design a 3-D Flexagon</a>
+                <div class="entry-date">
+                    <time datetime="2014-09-22T14:20:22+08:00">September 22, 2014</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2013-12-05-a-journey-to-good-old-days/">A Journey To Good Old Days</a>
+                <div class="entry-date">
+                    <time datetime="2013-12-05T20:20:22+08:00">December 5, 2013</time>
+                </div>
+            </div></div><h2 id="erlang" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;erlang&nbsp;(2)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2015-06-24-charts-in-common-test/">Show Charts in common_test Report</a>
+                <div class="entry-date">
+                    <time datetime="2015-06-24T16:20:22+08:00">June 24, 2015</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2014-04-15-beijing-yaohao/">北京小客车摇号数据分析</a>
+                <div class="entry-date">
+                    <time datetime="2014-04-15T07:20:22+08:00">April 15, 2014</time>
+                </div>
+            </div></div><h2 id="lazarus" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;lazarus&nbsp;(2)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2014-11-21-introduce-lazradio/">Introduce LazRadio</a>
+                <div class="entry-date">
+                    <time datetime="2014-11-21T02:20:22+08:00">November 21, 2014</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2014-04-15-beijing-yaohao/">北京小客车摇号数据分析</a>
+                <div class="entry-date">
+                    <time datetime="2014-04-15T07:20:22+08:00">April 15, 2014</time>
+                </div>
+            </div></div><h2 id="lazradio" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;lazradio&nbsp;(1)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2014-11-21-introduce-lazradio/">Introduce LazRadio</a>
+                <div class="entry-date">
+                    <time datetime="2014-11-21T02:20:22+08:00">November 21, 2014</time>
+                </div>
+            </div></div><h2 id="mathematica" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;mathematica&nbsp;(4)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2016-02-15-mma-on-ligo/">用 Mathematica 处理引力波数据</a>
+                <div class="entry-date">
+                    <time datetime="2016-02-15T05:20:22+08:00">February 15, 2016</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2014-09-22-flexagon/">Design a 3-D Flexagon</a>
+                <div class="entry-date">
+                    <time datetime="2014-09-22T14:20:22+08:00">September 22, 2014</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2014-05-26-decade-years-old-problem-answered/">十多年前的一道高中物理题</a>
+                <div class="entry-date">
+                    <time datetime="2014-05-26T02:20:22+08:00">May 26, 2014</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2013-12-05-a-journey-to-good-old-days/">A Journey To Good Old Days</a>
+                <div class="entry-date">
+                    <time datetime="2013-12-05T20:20:22+08:00">December 5, 2013</time>
+                </div>
+            </div></div><h2 id="nlp" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;nlp&nbsp;(1)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2018-06-03-mrc2018-reflections/">MRC2018 赛后随想</a>
+                <div class="entry-date">
+                    <time datetime="2018-06-03T05:20:22+08:00">June 3, 2018</time>
+                </div>
+            </div></div><h2 id="sampling" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;sampling&nbsp;(1)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2014-04-15-beijing-yaohao/">北京小客车摇号数据分析</a>
+                <div class="entry-date">
+                    <time datetime="2014-04-15T07:20:22+08:00">April 15, 2014</time>
+                </div>
+            </div></div><h2 id="signal" class="linked-section">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        &nbsp;signal&nbsp;(3)
+    </h2>
+    <div class="post-list"><div class="tag-entry">
+                <a href="/2016-02-15-mma-on-ligo/">用 Mathematica 处理引力波数据</a>
+                <div class="entry-date">
+                    <time datetime="2016-02-15T05:20:22+08:00">February 15, 2016</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2014-04-29-compressed-sensing-channel-estimation/">压缩感知用于同频信道估计</a>
+                <div class="entry-date">
+                    <time datetime="2014-04-29T15:20:22+08:00">April 29, 2014</time>
+                </div>
+            </div><div class="tag-entry">
+                <a href="/2013-12-05-a-journey-to-good-old-days/">A Journey To Good Old Days</a>
+                <div class="entry-date">
+                    <time datetime="2013-12-05T20:20:22+08:00">December 5, 2013</time>
+                </div>
+            </div></div></div>
 
 
       

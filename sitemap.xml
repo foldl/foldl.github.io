@@ -1,43 +1,51 @@
----
-layout: nil
----
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!--  Homepage -->
-  <url>
-    <loc>http://{{ site.domain }}/</loc>
-    <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
-    <changefreq>daily</changefreq>
-		<priority>1.0</priority>
-  </url>
-
-  {% for page in site.posts %}
-  <url>
-    <loc>http://{{ site.domain }}{{ page.url }}</loc>
-    {% if page.last_updated %}
-    <lastmod>{{ page.last_updated | date: "%Y-%m-%d" }}</lastmod>
-    {% elsif page.date %}
-    <lastmod>{{ page.date | date: "%Y-%m-%d" }}</lastmod>
-    {% else %}
-    <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
-    {% endif %}
-  </url>
-  {% endfor %}
-
-  {% for page in site.html_pages %}
-  <url>
-    <loc>http://{{ site.domain }}{{ page.url }}</loc>
-    {% if page.last_updated %}
-    <lastmod>{{ page.last_updated | date: "%Y-%m-%d" }}</lastmod>
-    {% elsif page.date %}
-    <lastmod>{{ page.date | date: "%Y-%m-%d" }}</lastmod>
-    {% else %}
-    <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
-    {% endif %}
-    {% if page.changefreq %}<changefreq>{{ page.changefreq }}</changefreq>{% endif %}
-    {% if page.priority %}<priority>{{ page.priority }}</priority>{% endif %}
-  </url>
-  {% endfor %}
-
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://foldl.github.io/2013-12-05-a-journey-to-good-old-days/</loc>
+<lastmod>2013-12-05T20:20:22+08:00</lastmod>
+</url>
+<url>
+<loc>https://foldl.github.io/2014-04-15-beijing-yaohao/</loc>
+<lastmod>2014-04-15T07:20:22+08:00</lastmod>
+</url>
+<url>
+<loc>https://foldl.github.io/2014-04-29-compressed-sensing-channel-estimation/</loc>
+<lastmod>2014-04-29T15:20:22+08:00</lastmod>
+</url>
+<url>
+<loc>https://foldl.github.io/2014-05-26-decade-years-old-problem-answered/</loc>
+<lastmod>2014-05-26T02:20:22+08:00</lastmod>
+</url>
+<url>
+<loc>https://foldl.github.io/2014-09-22-flexagon/</loc>
+<lastmod>2014-09-22T14:20:22+08:00</lastmod>
+</url>
+<url>
+<loc>https://foldl.github.io/2014-11-21-introduce-lazradio/</loc>
+<lastmod>2014-11-21T02:20:22+08:00</lastmod>
+</url>
+<url>
+<loc>https://foldl.github.io/2015-06-24-charts-in-common-test/</loc>
+<lastmod>2015-06-24T16:20:22+08:00</lastmod>
+</url>
+<url>
+<loc>https://foldl.github.io/2016-02-15-mma-on-ligo/</loc>
+<lastmod>2016-02-15T05:20:22+08:00</lastmod>
+</url>
+<url>
+<loc>https://foldl.github.io/2018-06-03-mrc2018-reflections/</loc>
+<lastmod>2018-06-03T05:20:22+08:00</lastmod>
+</url>
+<url>
+<loc>https://foldl.github.io/aboutme/</loc>
+</url>
+<url>
+<loc>https://foldl.github.io/</loc>
+</url>
+<url>
+<loc>https://foldl.github.io/tags/</loc>
+</url>
+<url>
+<loc>https://foldl.github.io/page2/</loc>
+</url>
 </urlset>
