@@ -93,7 +93,7 @@
   <meta property="og:description" content="五个月前，美国的激光干涉引力波观测站 LIGO 记录下这片时空里泛起的一丝波澜。这正是爱因斯坦广义相对论中的引力波。 LOSC 上有一篇详实的数据处理教程。正所谓“绝知此事需躬行”，这里我们用 Mathematica 复现教程里的结果。 1. 准备数据 下载两个观测站上采样率为 4096sps 的两组数据。 2. 初步分析 数据格式为 HDF5，Mathematica 可以直接读取。 从 H-H1 站数据的频谱图上可以看出，原始数据里含有丰富的低频分量，以及多个很强的系统固有的谐波干扰。从时域波形上也能大致看出类似现象。 Fs = 4096; hh1 = Import[ &quot;H-H1_LOSC_4_V1-1126259446-32.hdf5&quot;, {&quot;Datasets&quot;, &quot;/strain/Strain&quot;}]; Periodogram[hh1 10^18, SampleRate -&amp;gt; 4*1024, PlotRange -&amp;gt; { {0, 400}, All}] ListPlot[hh1[[;; 400]], Joined -&amp;gt; True, PlotRange -&amp;gt; All] 3. 带通滤波...">
 
   
-  <meta property="og:image" content="/assets/img/hello_world.jpeg">
+  <meta property="og:image" content="/assets/img/avatar-icon.png">
   
 
   
@@ -114,7 +114,7 @@
   <meta property="twitter:description" content="五个月前，美国的激光干涉引力波观测站 LIGO 记录下这片时空里泛起的一丝波澜。这正是爱因斯坦广义相对论中的引力波。 LOSC 上有一篇详实的数据处理教程。正所谓“绝知此事需躬行”，这里我们用 Mathematica 复现教程里的结果。 1. 准备数据 下载两个观测站上采样率为 4096sps 的两组数据。 2. 初步分析 数据格式为 HDF5，Mathematica 可以直接读取。 从 H-H1 站数据的频谱图上可以看出，原始数据里含有丰富的低频分量，以及多个很强的系统固有的谐波干扰。从时域波形上也能大致看出类似现象。 Fs = 4096; hh1 = Import[ &quot;H-H1_LOSC_4_V1-1126259446-32.hdf5&quot;, {&quot;Datasets&quot;, &quot;/strain/Strain&quot;}]; Periodogram[hh1 10^18, SampleRate -&amp;gt; 4*1024, PlotRange -&amp;gt; { {0, 400}, All}] ListPlot[hh1[[;; 400]], Joined -&amp;gt; True, PlotRange -&amp;gt; All] 3. 带通滤波...">
 
   
-  <meta name="twitter:image" content="/assets/img/hello_world.jpeg">
+  <meta name="twitter:image" content="/assets/img/avatar-icon.png">
   
 
   
@@ -169,7 +169,7 @@
     <div class="avatar-container">
       <div class="avatar-img-border">
         <a href="">
-          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/hello_world.jpeg" />
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/avatar-icon.png" />
         </a>
       </div>
     </div>
