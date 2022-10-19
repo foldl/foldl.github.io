@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Beautiful Jekyll 5.0.0 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+
+  
+
+  <title>Chasing a Win32 bug in SetCommState</title>
+
+  
+  <meta name="author" content="Judd">
+  
+
+  <meta name="description" content="Is the problem caused by sscom? Narrow down the problem Dive into SetCommState() Conclusion Workaround For those (including myself) working on embedding systems, COM port is used day to day. sscom is a cute tool used widely. It’s small sized, fast, and reliable. Unfortunately, something strange happened when sscom is...">
+
+  
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" title="码字" href="/feed.xml">
+  
+
+  
+
+  
+
+  
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'UA-45774748-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+  
+
+
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+      <link rel="stylesheet" href="/assets/css/mycss.css">
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <meta property="og:site_name" content="码字">
+  <meta property="og:title" content="Chasing a Win32 bug in SetCommState">
+  <meta property="og:description" content="Is the problem caused by sscom? Narrow down the problem Dive into SetCommState() Conclusion Workaround For those (including myself) working on embedding systems, COM port is used day to day. sscom is a cute tool used widely. It’s small sized, fast, and reliable. Unfortunately, something strange happened when sscom is...">
+
+  
+  <meta property="og:image" content="/assets/img/avatar-icon.png">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:author" content="Judd">
+  <meta property="og:article:published_time" content="2022-10-18T00:00:00+08:00">
+  <meta property="og:url" content="/2022-10-18-chasing-a-win32-bug/">
+  <link rel="canonical" href="/2022-10-18-chasing-a-win32-bug/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@">
+  <meta name="twitter:creator" content="@">
+
+  <meta property="twitter:title" content="Chasing a Win32 bug in SetCommState">
+  <meta property="twitter:description" content="Is the problem caused by sscom? Narrow down the problem Dive into SetCommState() Conclusion Workaround For those (including myself) working on embedding systems, COM port is used day to day. sscom is a cute tool used widely. It’s small sized, fast, and reliable. Unfortunately, something strange happened when sscom is...">
+
+  
+  <meta name="twitter:image" content="/assets/img/avatar-icon.png">
+  
+
+  
+
+
+  
+
+  
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+          tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+    });
+  </script>
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="">码字</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutme">About Me</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nav-search-link" href="#" title="Search">
+            <span id="nav-search-icon" class="fa fa-search"></span>
+            <span id="nav-search-text">Search</span>
+          </a>
+        </li></ul>
+  </div>
+
+  
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/avatar-icon.png" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+
+<div id="beautifuljekyll-search-overlay">
+
+  <div id="nav-search-exit" title="Exit search">✕</div>
+  <input type="text" id="nav-search-input" placeholder="Search">
+  <ul id="search-results-container"></ul>
+  
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  <script>
+    var searchjson = '[ \
+       \
+        { \
+          "title"    : "Chasing a Win32 bug in SetCommState", \
+          "category" : "windowsuart", \
+          "url"      : "/2022-10-18-chasing-a-win32-bug/", \
+          "date"     : "October 18, 2022" \
+        }, \
+       \
+        { \
+          "title"    : "MRC2018 赛后随想", \
+          "category" : "nlpai", \
+          "url"      : "/2018-06-03-mrc2018-reflections/", \
+          "date"     : "June  3, 2018" \
+        }, \
+       \
+        { \
+          "title"    : "用 Mathematica 处理引力波数据", \
+          "category" : "mathematicasignal", \
+          "url"      : "/2016-02-15-mma-on-ligo/", \
+          "date"     : "February 15, 2016" \
+        }, \
+       \
+        { \
+          "title"    : "Show Charts in common_test Report", \
+          "category" : "erlangcommon_testen", \
+          "url"      : "/2015-06-24-charts-in-common-test/", \
+          "date"     : "June 24, 2015" \
+        }, \
+       \
+        { \
+          "title"    : "Introduce LazRadio", \
+          "category" : "lazradiolazarusen", \
+          "url"      : "/2014-11-21-introduce-lazradio/", \
+          "date"     : "November 21, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "Design a 3-D Flexagon", \
+          "category" : "mathematicaen", \
+          "url"      : "/2014-09-22-flexagon/", \
+          "date"     : "September 22, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "十多年前的一道高中物理题", \
+          "category" : "mathematica", \
+          "url"      : "/2014-05-26-decade-years-old-problem-answered/", \
+          "date"     : "May 26, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "压缩感知用于同频信道估计", \
+          "category" : "signal", \
+          "url"      : "/2014-04-29-compressed-sensing-channel-estimation/", \
+          "date"     : "April 29, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "北京小客车摇号数据分析", \
+          "category" : "erlanglazarussampling", \
+          "url"      : "/2014-04-15-beijing-yaohao/", \
+          "date"     : "April 15, 2014" \
+        }, \
+       \
+        { \
+          "title"    : "A Journey To Good Old Days", \
+          "category" : "signalmathematicaen", \
+          "url"      : "/2013-12-05-a-journey-to-good-old-days/", \
+          "date"     : "December  5, 2013" \
+        }, \
+       \
+       \
+        { \
+          "title"    : "About me", \
+          "category" : "page", \
+          "url"      : "/aboutme/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "码字", \
+          "category" : "page", \
+          "url"      : "/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "Tag Index", \
+          "category" : "page", \
+          "url"      : "/tags/", \
+          "date"     : "January 1, 1970" \
+        }, \
+       \
+        { \
+          "title"    : "码字", \
+          "category" : "page", \
+          "url"      : "/page2/", \
+          "date"     : "January 1, 1970" \
+        } \
+       \
+    ]';
+    searchjson = JSON.parse(searchjson);
+
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('nav-search-input'),
+      resultsContainer: document.getElementById('search-results-container'),
+      json: searchjson
+    });
+  </script>
+</div>
+
+
+
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="post-heading">
+          <h1>Chasing a Win32 bug in SetCommState</h1>
+          
+
+          
+            <span class="post-meta">Posted on October 18, 2022</span>
+            
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md ">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+
+      
+
+      
+
+      <article role="main" class="blog-post">
+        <ul id="markdown-toc">
+  <li><a href="#is-the-problem-caused-by-sscom" id="markdown-toc-is-the-problem-caused-by-sscom">Is the problem caused by <em>sscom</em>?</a></li>
+  <li><a href="#narrow-down-the-problem" id="markdown-toc-narrow-down-the-problem">Narrow down the problem</a></li>
+  <li><a href="#dive-into-setcommstate" id="markdown-toc-dive-into-setcommstate">Dive into <code class="language-plaintext highlighter-rouge">SetCommState()</code></a></li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+  <li><a href="#workaround" id="markdown-toc-workaround">Workaround</a></li>
+</ul>
+
+<p>For those (including myself) working on embedding systems, COM port is used day to day.
+<a href="http://www.sscom.vip/"><em>sscom</em></a> is a cute tool used widely. It’s small sized, fast,
+and reliable.</p>
+
+<p>Unfortunately, something strange happened when <em>sscom</em> is used:</p>
+
+<ul>
+  <li><a href="https://github.com/pyserial/pyserial"><em>pyserial</em></a> will crash</li>
+  <li>My <a href="https://github.com/foldl/KissUART"><em>KissUART</em></a> will also hang and crash</li>
+  <li>When using Web Serial API in Edge, the whole browser will hang too.</li>
+</ul>
+
+<p>Now, let’s find it out.</p>
+
+<h2 id="is-the-problem-caused-by-sscom">Is the problem caused by <em>sscom</em>?</h2>
+
+<p>Icon of <em>sscom</em> tells us that it is built with an elder version of
+<a href="https://www.embarcadero.com/products/cbuilder/">C++ Builder</a>.
+Its size then tells us that it has been compressed by packer like <a href="https://github.com/upx/upx">upx</a>.</p>
+
+<p>Actually it is packed by <a href="https://aspack.com">ASPack</a>. A quick search convinced me
+not to try to unpack it. Instead, we could load it into <a href="https://hex-rays.com/ida-free">IDA Freeware</a>.
+From the <em>Names</em> sub-view, we were sure that <em>sscom</em> is using
+<a href="https://github.com/CWBudde/ComPort-Library"><em>ComPort-Library</em></a>:</p>
+
+<p><img src="../img/win32_bug_cport.png" alt="" /></p>
+
+<p>The problem seems probably not caused by <em>sscom</em>.</p>
+
+<h2 id="narrow-down-the-problem">Narrow down the problem</h2>
+
+<p>Now I can reproduce the problem with 100% probability:</p>
+
+<ol>
+  <li>Connect a J-Link probe;</li>
+  <li>Open the CDC serial port of the probe in <em>sscom</em>;</li>
+  <li>Close the serial port;</li>
+  <li>Open the port in one of below tools and it will panic (while <em>sscom</em> would not):
+    <ul>
+      <li><em>KissUART</em></li>
+      <li><em>pyserial</em></li>
+      <li>Edge</li>
+      <li>and <strong>even the <code class="language-plaintext highlighter-rouge">mode</code> command</strong></li>
+    </ul>
+  </li>
+  <li>Reconnect the probe, and then the port can be opened in either <em>KissUART</em>, <em>pyserial</em>, or Edge, again.</li>
+</ol>
+
+<p>There are quite some <em>printf</em>(s) in [<em>KissUART</em>]. Enable them, and use it to open a
+newly connected probe and one accessed by <em>sscom</em>. Two values look strange:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XonLim = 25000
+XoffLim = 25000
+</code></pre></div></div>
+
+<p><a href="https://learn.microsoft.com/en-us/windows/win32/api/winbase/ns-winbase-dcb">What do these values mean?</a>
+<em>KissUART</em> would not use flow-control, and these values are got them from <code class="language-plaintext highlighter-rouge">GetCommState()</code>.
+Modify several configurations, and feed the <code class="language-plaintext highlighter-rouge">DCB</code> back to <code class="language-plaintext highlighter-rouge">SetCommState()</code>. It
+is a best practice, isn’t it?</p>
+
+<p>Why <em>sscom</em> always works? It does not use <code class="language-plaintext highlighter-rouge">GetCommState()</code>, and each field of <code class="language-plaintext highlighter-rouge">DCB</code>
+is filled before feeding to <code class="language-plaintext highlighter-rouge">SetCommState()</code>, where <code class="language-plaintext highlighter-rouge">XonLim</code> and <code class="language-plaintext highlighter-rouge">XoffLim</code> are both
+set to <a href="https://github.com/CWBudde/ComPort-Library/blob/de19f1daa6ef0a3a3251174af7c8a81c6b233827/Source/CPort.pas#L1603">input buffer size divided by 4</a>.</p>
+
+<h2 id="dive-into-setcommstate">Dive into <code class="language-plaintext highlighter-rouge">SetCommState()</code></h2>
+
+<p>Use <a href="https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools">WinDbg</a> to load <em>KissUART</em> and let it go. After a while, WinDbg
+notifies us that a stack overflow has occurred. The stack window clears showing that
+<code class="language-plaintext highlighter-rouge">SetCommState()</code> is <em>recursively</em> calling itself.</p>
+
+<p><img src="../img/setcommstate_recursive.png" alt="" /></p>
+
+<p>This is truly weird. Let’s see what is going on in <code class="language-plaintext highlighter-rouge">SetCommState()</code>. Use IDA to
+debug <em>KissUART</em>, placing a breakpoint at <code class="language-plaintext highlighter-rouge">SetCommState()</code>. After running into
+this API, de-compile it, and YES, it is recursive:</p>
+
+<p><img src="../img/decompile_setcommstate.png" alt="" /></p>
+
+<p>I assume that a super simplified version of <code class="language-plaintext highlighter-rouge">SetCommState()</code> looks like this:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BOOL</span> <span class="nf">SetCommState</span><span class="p">(</span><span class="n">HANDLE</span> <span class="n">hFile</span><span class="p">,</span> <span class="n">LPDCB</span> <span class="n">lpDCB</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">DCB</span> <span class="n">old</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">GetCommState</span><span class="p">(</span><span class="n">hFile</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">old</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">FALSE</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">NtDeviceIoControlFile</span><span class="p">(</span><span class="n">hFile</span><span class="p">,</span> <span class="n">lpDCB</span><span class="p">,</span> <span class="p">...))</span>
+    <span class="p">{</span>
+        <span class="c1">// let's "restore" its state</span>
+        <span class="k">return</span> <span class="n">SetCommState</span><span class="p">(</span><span class="n">hFile</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">old</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>It’s the fault of <code class="language-plaintext highlighter-rouge">SetCommState()</code>, which should not be recursive. I think it
+could have been implemented like this:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BOOL</span> <span class="nf">SetCommState0</span><span class="p">(</span><span class="n">HANDLE</span> <span class="n">hFile</span><span class="p">,</span> <span class="n">LPDCB</span> <span class="n">lpDCB</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// NtDeviceIoControlFile</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="n">BOOL</span> <span class="nf">SetCommState</span><span class="p">(</span><span class="n">HANDLE</span> <span class="n">hFile</span><span class="p">,</span> <span class="n">LPDCB</span> <span class="n">lpDCB</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">DCB</span> <span class="n">old</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">GetCommState</span><span class="p">(</span><span class="n">hFile</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">old</span><span class="p">))</span> <span class="k">return</span> <span class="n">FALSE</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">SetCommState0</span><span class="p">(</span><span class="n">hFile</span><span class="p">,</span> <span class="n">lpDCB</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="c1">// let's "restore" its state</span>
+        <span class="k">return</span> <span class="n">SetCommState0</span><span class="p">(</span><span class="n">hFile</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">old</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="workaround">Workaround</h2>
+
+<p>Before MS delivers an update for this API, we can make our own workaround:</p>
+
+<ul>
+  <li>
+    <p>Stop assuming that <code class="language-plaintext highlighter-rouge">SetCommState()</code> will succeed with <code class="language-plaintext highlighter-rouge">DCB</code> read from <code class="language-plaintext highlighter-rouge">GetCommState</code>;</p>
+  </li>
+  <li>
+    <p>Always call <code class="language-plaintext highlighter-rouge">SetupComm()</code> and set <code class="language-plaintext highlighter-rouge">XonLim</code>/<code class="language-plaintext highlighter-rouge">XoffLim</code> accordingly before
+calling <code class="language-plaintext highlighter-rouge">SetCommState()</code> just as <em>ComPort-Library</em>.</p>
+  </li>
+</ul>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          <span>Tags:</span>
+          
+            <a href="/tags#windows">windows</a>
+          
+            <a href="/tags#uart">uart</a>
+          
+        </div>
+      
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+    <a href="https://twitter.com/intent/tweet?text=Chasing+a+Win32+bug+in+SetCommState&url=%2F2022-10-18-chasing-a-win32-bug%2F"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fab fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+    <a href="https://www.facebook.com/sharer/sharer.php?u=%2F2022-10-18-chasing-a-win32-bug%2F"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fab fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2F2022-10-18-chasing-a-win32-bug%2F"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fab fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pagination blog-pager">
+        
+        <li class="page-item previous">
+          <a class="page-link" href="/2018-06-03-mrc2018-reflections/" data-toggle="tooltip" data-placement="top" title="MRC2018 赛后随想">&larr; Previous Post</a>
+        </li>
+        
+        
+      </ul>
+      
+  
+  
+  
+
+  
+
+
+  
+
+  
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="/feed.xml" title="RSS">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li><li class="list-inline-item">
+    <a href="https://github.com/foldl" title="GitHub">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">GitHub</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Judd
+        &nbsp;&bull;&nbsp;
+      
+      2022
+
+      
+
+      
+
+      
+
+      </p>
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -15,7 +15,7 @@
   <meta name="author" content="Judd">
   
 
-  <meta name="description" content="压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y = Ax\] 现在这个问题可用线性规划方法进行逼近。 考虑一个更实用的带加性噪声的欠定系统$y...">
+  <meta name="description" content="压缩感知 同频多小区信道估计 参考文献 压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y =...">
 
   
 
@@ -77,6 +77,8 @@
     
       <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
     
+      <link rel="stylesheet" href="/assets/css/mycss.css">
+    
   
 
   
@@ -90,7 +92,7 @@
   
   <meta property="og:site_name" content="码字">
   <meta property="og:title" content="压缩感知用于同频信道估计">
-  <meta property="og:description" content="压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y = Ax\] 现在这个问题可用线性规划方法进行逼近。 考虑一个更实用的带加性噪声的欠定系统$y...">
+  <meta property="og:description" content="压缩感知 同频多小区信道估计 参考文献 压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y =...">
 
   
   <meta property="og:image" content="/assets/img/avatar-icon.png">
@@ -111,7 +113,7 @@
   <meta name="twitter:creator" content="@">
 
   <meta property="twitter:title" content="压缩感知用于同频信道估计">
-  <meta property="twitter:description" content="压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y = Ax\] 现在这个问题可用线性规划方法进行逼近。 考虑一个更实用的带加性噪声的欠定系统$y...">
+  <meta property="twitter:description" content="压缩感知 同频多小区信道估计 参考文献 压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。 压缩感知 考虑一个欠定系统$y = A x$，我们无法解出$x$，或者说有无数的解，却不知道该如何选择。假如$x$是稀疏的，即其中多数元素都为 0，那么不妨遵照奥卡姆剃刀法则，取 0-范数最小的做为最优解： \[\underset x {min} \|x\|_0, \ \ \ \ \ subject \ to \ \ y = Ax\] 这个优化问题运算量大，于是 Donoho 等提出可以以 1-范数代之： \[\underset x {min} \|x\|_1, \ \ \ \ \ subject \ to \ \ y =...">
 
   
   <meta name="twitter:image" content="/assets/img/avatar-icon.png">
@@ -188,6 +190,13 @@
   <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script>
     var searchjson = '[ \
+       \
+        { \
+          "title"    : "Chasing a Win32 bug in SetCommState", \
+          "category" : "windowsuart", \
+          "url"      : "/2022-10-18-chasing-a-win32-bug/", \
+          "date"     : "October 18, 2022" \
+        }, \
        \
         { \
           "title"    : "MRC2018 赛后随想", \
@@ -339,7 +348,13 @@
       
 
       <article role="main" class="blog-post">
-        <p>压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。</p>
+        <ul id="markdown-toc">
+  <li><a href="#压缩感知" id="markdown-toc-压缩感知">压缩感知</a></li>
+  <li><a href="#同频多小区信道估计" id="markdown-toc-同频多小区信道估计">同频多小区信道估计</a></li>
+  <li><a href="#参考文献" id="markdown-toc-参考文献">参考文献</a></li>
+</ul>
+
+<p>压缩感知（Compressed Sensing），也称稀疏采样（Sparse Sampling），是一种求解欠定线性系统以重建信号的方法。</p>
 
 <h3 id="压缩感知">压缩感知</h3>
 

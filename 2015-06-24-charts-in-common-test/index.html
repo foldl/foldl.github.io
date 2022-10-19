@@ -15,7 +15,7 @@
   <meta name="author" content="Judd">
   
 
-  <meta name="description" content="common_test is a wonderful framework for tests, and if we can make some charts in its report, things would be even greater. Here is my solution, using Flot. Manipulate HTML Report with Hooks When a suite is started, copy jquery.flot.min.js and jquery.flot.axislabels.js to logdir. When a case is started, inject...">
+  <meta name="description" content="Manipulate HTML Report with Hooks Emit Charts in Test Cases common_test is a wonderful framework for tests, and if we can make some charts in its report, things would be even greater. Here is my solution, using Flot. Manipulate HTML Report with Hooks When a suite is started, copy jquery.flot.min.js...">
 
   
 
@@ -77,6 +77,8 @@
     
       <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
     
+      <link rel="stylesheet" href="/assets/css/mycss.css">
+    
   
 
   
@@ -90,7 +92,7 @@
   
   <meta property="og:site_name" content="码字">
   <meta property="og:title" content="Show Charts in common_test Report">
-  <meta property="og:description" content="common_test is a wonderful framework for tests, and if we can make some charts in its report, things would be even greater. Here is my solution, using Flot. Manipulate HTML Report with Hooks When a suite is started, copy jquery.flot.min.js and jquery.flot.axislabels.js to logdir. When a case is started, inject...">
+  <meta property="og:description" content="Manipulate HTML Report with Hooks Emit Charts in Test Cases common_test is a wonderful framework for tests, and if we can make some charts in its report, things would be even greater. Here is my solution, using Flot. Manipulate HTML Report with Hooks When a suite is started, copy jquery.flot.min.js...">
 
   
   <meta property="og:image" content="/assets/img/avatar-icon.png">
@@ -111,7 +113,7 @@
   <meta name="twitter:creator" content="@">
 
   <meta property="twitter:title" content="Show Charts in common_test Report">
-  <meta property="twitter:description" content="common_test is a wonderful framework for tests, and if we can make some charts in its report, things would be even greater. Here is my solution, using Flot. Manipulate HTML Report with Hooks When a suite is started, copy jquery.flot.min.js and jquery.flot.axislabels.js to logdir. When a case is started, inject...">
+  <meta property="twitter:description" content="Manipulate HTML Report with Hooks Emit Charts in Test Cases common_test is a wonderful framework for tests, and if we can make some charts in its report, things would be even greater. Here is my solution, using Flot. Manipulate HTML Report with Hooks When a suite is started, copy jquery.flot.min.js...">
 
   
   <meta name="twitter:image" content="/assets/img/avatar-icon.png">
@@ -188,6 +190,13 @@
   <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script>
     var searchjson = '[ \
+       \
+        { \
+          "title"    : "Chasing a Win32 bug in SetCommState", \
+          "category" : "windowsuart", \
+          "url"      : "/2022-10-18-chasing-a-win32-bug/", \
+          "date"     : "October 18, 2022" \
+        }, \
        \
         { \
           "title"    : "MRC2018 赛后随想", \
@@ -339,7 +348,12 @@
       
 
       <article role="main" class="blog-post">
-        <p><code class="language-plaintext highlighter-rouge">common_test</code> is a wonderful framework for tests, and if we can make some charts in its report,
+        <ul id="markdown-toc">
+  <li><a href="#manipulate-html-report-with-hooks" id="markdown-toc-manipulate-html-report-with-hooks">Manipulate HTML Report with Hooks</a></li>
+  <li><a href="#emit-charts-in-test-cases" id="markdown-toc-emit-charts-in-test-cases">Emit Charts in Test Cases</a></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">common_test</code> is a wonderful framework for tests, and if we can make some charts in its report,
 things would be even greater.</p>
 
 <p>Here is my solution, using <a href="http://flotcharts.org/">Flot</a>.</p>

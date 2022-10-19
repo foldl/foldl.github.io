@@ -15,7 +15,7 @@
   <meta name="author" content="Judd">
   
 
-  <meta name="description" content="I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with SDR#. RTL2832U USB sticks open a door to cheap and portable SDRs. GnuRadio is a powerful toolkit that provides signal processing blocks to implement software-defined radios and signal processing...">
+  <meta name="description" content="Message Queue Data Transfer Connections “LazRadio” Language I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with SDR#. RTL2832U USB sticks open a door to cheap and portable SDRs. GnuRadio is a powerful toolkit that provides signal processing blocks...">
 
   
 
@@ -77,6 +77,8 @@
     
       <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
     
+      <link rel="stylesheet" href="/assets/css/mycss.css">
+    
   
 
   
@@ -90,7 +92,7 @@
   
   <meta property="og:site_name" content="码字">
   <meta property="og:title" content="Introduce LazRadio">
-  <meta property="og:description" content="I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with SDR#. RTL2832U USB sticks open a door to cheap and portable SDRs. GnuRadio is a powerful toolkit that provides signal processing blocks to implement software-defined radios and signal processing...">
+  <meta property="og:description" content="Message Queue Data Transfer Connections “LazRadio” Language I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with SDR#. RTL2832U USB sticks open a door to cheap and portable SDRs. GnuRadio is a powerful toolkit that provides signal processing blocks...">
 
   
   <meta property="og:image" content="/assets/img/avatar-icon.png">
@@ -111,7 +113,7 @@
   <meta name="twitter:creator" content="@">
 
   <meta property="twitter:title" content="Introduce LazRadio">
-  <meta property="twitter:description" content="I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with SDR#. RTL2832U USB sticks open a door to cheap and portable SDRs. GnuRadio is a powerful toolkit that provides signal processing blocks to implement software-defined radios and signal processing...">
+  <meta property="twitter:description" content="Message Queue Data Transfer Connections “LazRadio” Language I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with SDR#. RTL2832U USB sticks open a door to cheap and portable SDRs. GnuRadio is a powerful toolkit that provides signal processing blocks...">
 
   
   <meta name="twitter:image" content="/assets/img/avatar-icon.png">
@@ -188,6 +190,13 @@
   <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script>
     var searchjson = '[ \
+       \
+        { \
+          "title"    : "Chasing a Win32 bug in SetCommState", \
+          "category" : "windowsuart", \
+          "url"      : "/2022-10-18-chasing-a-win32-bug/", \
+          "date"     : "October 18, 2022" \
+        }, \
        \
         { \
           "title"    : "MRC2018 赛后随想", \
@@ -361,7 +370,14 @@
       
 
       <article role="main" class="blog-post">
-        <p>I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with <a href="http://www.sdrsharp.com" title="SDR">SDR#</a>.</p>
+        <ul id="markdown-toc">
+  <li><a href="#message-queue" id="markdown-toc-message-queue">Message Queue</a></li>
+  <li><a href="#data-transfer" id="markdown-toc-data-transfer">Data Transfer</a></li>
+  <li><a href="#connections" id="markdown-toc-connections">Connections</a></li>
+  <li><a href="#lazradio-language" id="markdown-toc-lazradio-language">“LazRadio” Language</a></li>
+</ul>
+
+<p>I like listening to my Redsun RP2100. Someday I bought an USB stick using the RTL2832U chip, and played around with <a href="http://www.sdrsharp.com" title="SDR">SDR#</a>.</p>
 
 <p>RTL2832U USB sticks open a door to cheap and portable SDRs. <a href="http://gnuradio.org" title="GnuRadio">GnuRadio</a> is a powerful toolkit
 that provides signal processing blocks to implement software-defined radios and signal processing systems,

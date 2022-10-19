@@ -15,7 +15,7 @@
   <meta name="author" content="Judd">
   
 
-  <meta name="description" content="上个月抱着“玩耍”的心态参加了2018机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。 百度为这次竞赛提供了官方基准程序 DuReader。我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必须简化模型。BiDAF 模型，看起来挺“合理”的，于是选择从词嵌入的方向进行简化。 1. 嵌入 DuReader 里词向量长度为 300，每个元素的值在训练过程中动态调整。Facebook 的fastText 为包括中文在内的 157 种语言提供了训练好的词向量，同样也是300维。但是 fastText 中文词库跟 MRC2018 词库交集很小，价值不大。 300 维太长，减为 150，MRC2018 词库太大，将出现次数低于 100 的全去掉。观察问题可以发现，问题中包含的关键词在词库中词频往往较低，都会被替换成 &amp;lt;UNK&amp;gt;。这么处理存在问题，所以增加了一个 &amp;lt;KEYWORD&amp;gt; 向量，也不理想，但总比全部采用 &amp;lt;UNK&amp;gt; 好一些。 除了词可以嵌入之外，对于英语，字母也可以嵌入，汉语就更多了，字、词性、字形等都可以考虑。最后借助Jieba 做了词性的嵌入。 候选段落里的词是否在问题中出现也被当作一个维度做了嵌入。 2. 胡思乱想 炼金术？ Ali Rahimi 在 NIPS 2017 “时间检验奖” 获奖感言中指出当前的深度学习是炼金术。以我对深度学习的浅显认识，确实像炼金术，也像中医。 为什么是 300 维，而不是...">
+  <meta name="description" content="1. 嵌入 2. 胡思乱想 炼金术？ 富人游戏？资本游戏？ 上个月抱着“玩耍”的心态参加了 2018 机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。 百度为这次竞赛提供了官方基准程序 DuReader。我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必须简化模型。BiDAF 模型，看起来挺“合理”的，于是选择从词嵌入的方向进行简化。 1. 嵌入 DuReader 里词向量长度为 300，每个元素的值在训练过程中动态调整。Facebook 的fastText 为包括中文在内的 157 种语言提供了训练好的词向量，同样也是300维。但是 fastText 中文词库跟 MRC2018 词库交集很小，价值不大。 300 维太长，减为 150，MRC2018 词库太大，将出现次数低于 100 的全去掉。观察问题可以发现，问题中包含的关键词在词库中词频往往较低，都会被替换成 &amp;lt;UNK&amp;gt;。这么处理存在问题，所以增加了一个 &amp;lt;KEYWORD&amp;gt; 向量，也不理想，但总比全部采用 &amp;lt;UNK&amp;gt; 好一些。 除了词可以嵌入之外，对于英语，字母也可以嵌入，汉语就更多了，字、词性、字形等都可以考虑。最后借助Jieba 做了词性的嵌入。 候选段落里的词是否在问题中出现也被当作一个维度做了嵌入。 2. 胡思乱想 炼金术？ Ali Rahimi...">
 
   
 
@@ -77,6 +77,8 @@
     
       <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
     
+      <link rel="stylesheet" href="/assets/css/mycss.css">
+    
   
 
   
@@ -90,7 +92,7 @@
   
   <meta property="og:site_name" content="码字">
   <meta property="og:title" content="MRC2018 赛后随想">
-  <meta property="og:description" content="上个月抱着“玩耍”的心态参加了2018机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。 百度为这次竞赛提供了官方基准程序 DuReader。我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必须简化模型。BiDAF 模型，看起来挺“合理”的，于是选择从词嵌入的方向进行简化。 1. 嵌入 DuReader 里词向量长度为 300，每个元素的值在训练过程中动态调整。Facebook 的fastText 为包括中文在内的 157 种语言提供了训练好的词向量，同样也是300维。但是 fastText 中文词库跟 MRC2018 词库交集很小，价值不大。 300 维太长，减为 150，MRC2018 词库太大，将出现次数低于 100 的全去掉。观察问题可以发现，问题中包含的关键词在词库中词频往往较低，都会被替换成 &amp;lt;UNK&amp;gt;。这么处理存在问题，所以增加了一个 &amp;lt;KEYWORD&amp;gt; 向量，也不理想，但总比全部采用 &amp;lt;UNK&amp;gt; 好一些。 除了词可以嵌入之外，对于英语，字母也可以嵌入，汉语就更多了，字、词性、字形等都可以考虑。最后借助Jieba 做了词性的嵌入。 候选段落里的词是否在问题中出现也被当作一个维度做了嵌入。 2. 胡思乱想 炼金术？ Ali Rahimi 在 NIPS 2017 “时间检验奖” 获奖感言中指出当前的深度学习是炼金术。以我对深度学习的浅显认识，确实像炼金术，也像中医。 为什么是 300 维，而不是...">
+  <meta property="og:description" content="1. 嵌入 2. 胡思乱想 炼金术？ 富人游戏？资本游戏？ 上个月抱着“玩耍”的心态参加了 2018 机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。 百度为这次竞赛提供了官方基准程序 DuReader。我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必须简化模型。BiDAF 模型，看起来挺“合理”的，于是选择从词嵌入的方向进行简化。 1. 嵌入 DuReader 里词向量长度为 300，每个元素的值在训练过程中动态调整。Facebook 的fastText 为包括中文在内的 157 种语言提供了训练好的词向量，同样也是300维。但是 fastText 中文词库跟 MRC2018 词库交集很小，价值不大。 300 维太长，减为 150，MRC2018 词库太大，将出现次数低于 100 的全去掉。观察问题可以发现，问题中包含的关键词在词库中词频往往较低，都会被替换成 &amp;lt;UNK&amp;gt;。这么处理存在问题，所以增加了一个 &amp;lt;KEYWORD&amp;gt; 向量，也不理想，但总比全部采用 &amp;lt;UNK&amp;gt; 好一些。 除了词可以嵌入之外，对于英语，字母也可以嵌入，汉语就更多了，字、词性、字形等都可以考虑。最后借助Jieba 做了词性的嵌入。 候选段落里的词是否在问题中出现也被当作一个维度做了嵌入。 2. 胡思乱想 炼金术？ Ali Rahimi...">
 
   
   <meta property="og:image" content="/assets/img/avatar-icon.png">
@@ -111,7 +113,7 @@
   <meta name="twitter:creator" content="@">
 
   <meta property="twitter:title" content="MRC2018 赛后随想">
-  <meta property="twitter:description" content="上个月抱着“玩耍”的心态参加了2018机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。 百度为这次竞赛提供了官方基准程序 DuReader。我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必须简化模型。BiDAF 模型，看起来挺“合理”的，于是选择从词嵌入的方向进行简化。 1. 嵌入 DuReader 里词向量长度为 300，每个元素的值在训练过程中动态调整。Facebook 的fastText 为包括中文在内的 157 种语言提供了训练好的词向量，同样也是300维。但是 fastText 中文词库跟 MRC2018 词库交集很小，价值不大。 300 维太长，减为 150，MRC2018 词库太大，将出现次数低于 100 的全去掉。观察问题可以发现，问题中包含的关键词在词库中词频往往较低，都会被替换成 &amp;lt;UNK&amp;gt;。这么处理存在问题，所以增加了一个 &amp;lt;KEYWORD&amp;gt; 向量，也不理想，但总比全部采用 &amp;lt;UNK&amp;gt; 好一些。 除了词可以嵌入之外，对于英语，字母也可以嵌入，汉语就更多了，字、词性、字形等都可以考虑。最后借助Jieba 做了词性的嵌入。 候选段落里的词是否在问题中出现也被当作一个维度做了嵌入。 2. 胡思乱想 炼金术？ Ali Rahimi 在 NIPS 2017 “时间检验奖” 获奖感言中指出当前的深度学习是炼金术。以我对深度学习的浅显认识，确实像炼金术，也像中医。 为什么是 300 维，而不是...">
+  <meta property="twitter:description" content="1. 嵌入 2. 胡思乱想 炼金术？ 富人游戏？资本游戏？ 上个月抱着“玩耍”的心态参加了 2018 机器阅读理解技术竞赛，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。 百度为这次竞赛提供了官方基准程序 DuReader。我使用的电脑配置有点寒碜，内存 8G，显卡为 GFX1060 6GB，马上就遇到了瓶颈，所以必须简化模型。BiDAF 模型，看起来挺“合理”的，于是选择从词嵌入的方向进行简化。 1. 嵌入 DuReader 里词向量长度为 300，每个元素的值在训练过程中动态调整。Facebook 的fastText 为包括中文在内的 157 种语言提供了训练好的词向量，同样也是300维。但是 fastText 中文词库跟 MRC2018 词库交集很小，价值不大。 300 维太长，减为 150，MRC2018 词库太大，将出现次数低于 100 的全去掉。观察问题可以发现，问题中包含的关键词在词库中词频往往较低，都会被替换成 &amp;lt;UNK&amp;gt;。这么处理存在问题，所以增加了一个 &amp;lt;KEYWORD&amp;gt; 向量，也不理想，但总比全部采用 &amp;lt;UNK&amp;gt; 好一些。 除了词可以嵌入之外，对于英语，字母也可以嵌入，汉语就更多了，字、词性、字形等都可以考虑。最后借助Jieba 做了词性的嵌入。 候选段落里的词是否在问题中出现也被当作一个维度做了嵌入。 2. 胡思乱想 炼金术？ Ali Rahimi...">
 
   
   <meta name="twitter:image" content="/assets/img/avatar-icon.png">
@@ -188,6 +190,13 @@
   <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
   <script>
     var searchjson = '[ \
+       \
+        { \
+          "title"    : "Chasing a Win32 bug in SetCommState", \
+          "category" : "windowsuart", \
+          "url"      : "/2022-10-18-chasing-a-win32-bug/", \
+          "date"     : "October 18, 2022" \
+        }, \
        \
         { \
           "title"    : "MRC2018 赛后随想", \
@@ -339,7 +348,16 @@
       
 
       <article role="main" class="blog-post">
-        <p>上个月抱着“玩耍”的心态参加了<a href="https://mrc2018.cipsc.org.cn/">2018机器阅读理解技术竞赛</a>，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。</p>
+        <ul id="markdown-toc">
+  <li><a href="#1-嵌入" id="markdown-toc-1-嵌入">1. 嵌入</a></li>
+  <li><a href="#2-胡思乱想" id="markdown-toc-2-胡思乱想">2. 胡思乱想</a>    <ul>
+      <li><a href="#炼金术" id="markdown-toc-炼金术">炼金术？</a></li>
+      <li><a href="#富人游戏资本游戏" id="markdown-toc-富人游戏资本游戏">富人游戏？资本游戏？</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>上个月抱着“玩耍”的心态参加了 <a href="https://mrc2018.cipsc.org.cn/">2018 机器阅读理解技术竞赛</a>，得分很一般，在线评估 ROUGE-L 得分比官方基准高 0.3，可以忽略不计，但也有一点值得写下来的感想。</p>
 
 <p><img src="/img/tw1_bike.PNG" alt="a persion riding a bike" /></p>
 
@@ -440,6 +458,10 @@
           <a class="page-link" href="/2016-02-15-mma-on-ligo/" data-toggle="tooltip" data-placement="top" title="用 Mathematica 处理引力波数据">&larr; Previous Post</a>
         </li>
         
+        
+        <li class="page-item next">
+          <a class="page-link" href="/2022-10-18-chasing-a-win32-bug/" data-toggle="tooltip" data-placement="top" title="Chasing a Win32 bug in SetCommState">Next Post &rarr;</a>
+        </li>
         
       </ul>
       
